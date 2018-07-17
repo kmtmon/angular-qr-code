@@ -1,0 +1,33 @@
+.main{
+    position: fixed;
+    right: 10%;
+    top:22%;
+    left:30%;
+    width:70%;
+    font-family:"Arial", Gadget, sans-serif;
+    font-size: 1.2em;
+    color:rgb(17, 72, 97);
+}
+table{
+    border-spacing: 24px;
+}
+tr{
+    text-align: left; 
+}
+
+input{
+    height:100%;
+    width:230px;
+    font-size:18px;
+    color:rgb(17, 72, 97);
+    border-radius: 3px;
+}
+textarea{
+   height:150px;
+    width:300px;
+    font-size:18px;
+    color:rgb(17, 72, 97);
+    border-radius: 5px;
+    resize:none;
+ 
+}

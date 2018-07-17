@@ -1,0 +1,17 @@
+<app-current-user></app-current-user>
+<div class="grid">
+    <a *ngFor="let cat of categorys" class="col-1-4"
+    routerLink="/catDetail/{{cat.id}}">
+      <div class="module">
+        <h4>{{cat.name}}</h4>
+      </div>
+    </a>
+
+</div>
+
+
+<div class="home">
+    <app-home></app-home>
+</div>
+
+

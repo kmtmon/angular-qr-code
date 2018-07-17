@@ -1,0 +1,47 @@
+body {
+    font-family:"Arial", Gadget, sans-serif;
+}
+/*
+.sidenav {
+    width: 180px;
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top:0;
+    left: 0;
+    background: #eee;
+    overflow-x: hidden;
+    padding: 8px 0;
+}*/
+
+.sidenav {
+    width:12%;
+
+}
+.menuitem {
+    width:100%;
+    margin:2%;
+    margin-left:0;
+    margin-top:10px;
+    padding-top: 0;
+    border-bottom:1px solid #bbb9b9;
+    cursor:pointer;
+}
+
+.sidenav a {
+    padding: 10px 12px 10px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: rgb(19, 107, 136);
+    display: block;
+    
+}
+
+.sidenav a:hover {
+    color: #04365f;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}

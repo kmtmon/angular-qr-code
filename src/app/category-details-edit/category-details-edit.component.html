@@ -1,0 +1,21 @@
+<app-current-user></app-current-user>
+
+<div *ngIf="category" class="main">
+  <table>
+    <tr>
+      <th><h3>Product Name </h3></th>
+      <th><input [(ngModel)]="category.name" placeholder="name"/></th>
+    </tr>  
+    <tr> 
+      <th><h3>Description</h3></th>
+      <th><textarea [(ngModel)]="category.description" placeholder="description"></textarea></th>
+    </tr>   
+   
+  </table>
+  <button (click)="goBack()">go back</button>
+
+</div>
+
+<div class="home">
+  <app-home></app-home>
+</div>
