@@ -1,0 +1,23 @@
+
+<app-current-user></app-current-user>
+<div class="container">
+  <h3 id="h1">Serial No.: {{item.id}} </h3>
+  <h3 id="h2">Category: {{cat.name}}</h3>
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Action</th>
+      <th>Action done by</th>
+    </tr>
+    <tr>
+      <td>01-01</td>
+      <td>Item added</td>
+      <td>Admin</td>
+    </tr>
+  </table>
+  <button (click)="goBack()">go back</button>
+</div>
+
+<div class="home">
+  <app-home></app-home>
+</div>

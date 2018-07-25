@@ -1,0 +1,14 @@
+.container{
+    position: fixed;
+    right: 5%;
+    top:22%;
+    /*background-color: coral; */
+    width:60%;
+    font-family:"Arial", Gadget, sans-serif;
+  }
+
+  table{
+      text-align: left;
+      width:80%;
+  }
+  

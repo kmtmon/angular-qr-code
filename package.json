@@ -11,7 +11,8 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^6.0.3",
+    "@angular/animations": "^6.0.9",
+    "@angular/cdk": "^6.4.0",
     "@angular/common": "^6.0.3",
     "@angular/compiler": "^6.0.3",
     "@angular/core": "^6.0.3",
@@ -20,7 +21,11 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@types/jspdf": "^1.1.31",
     "core-js": "^2.5.4",
+    "jspdf": "^1.4.1",
+    "ng-pick-datetime": "^6.0.10",
+    "ngx-qrcode2": "0.0.9",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

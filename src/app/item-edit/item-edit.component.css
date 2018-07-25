@@ -1,23 +1,17 @@
-.main{
-   
+.itemEdit{
     position: fixed;
     right: 10%;
     top:22%;
     left:30%;
-    width:60%;
+    width:100%;
     font-family:"Arial", Gadget, sans-serif;
     font-size: 1.2em;
     color:rgb(17, 72, 97);
- /* background-color: coral;*/
 }
-
-table{
-    border-spacing: 21px;
+input{
+    height:100%;
+    width:230px;
+    font-size:18px;
+    color:rgb(17, 72, 97);
+ 
 }
-tr{
-    text-align: left; 
-}
-.home{
-    width:100%;
-  
-  }

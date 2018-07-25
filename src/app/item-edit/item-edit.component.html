@@ -1,0 +1,18 @@
+<app-current-user></app-current-user>
+<div class="itemEdit">
+
+    <h3>Category</h3>
+      
+    <select name="category">
+      <option *ngFor="let cat of categorys"  value="{{cat.name}}">{{cat.name}}</option>
+    </select>   
+      <h3>Location</h3>
+    <input [(ngModel)]="item.location" placeholder="{{item.location}}"/>
+      
+
+  <button (click)="goBack()">go back</button>
+</div>
+
+<div class="home">
+    <app-home></app-home>
+</div>

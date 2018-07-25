@@ -7,14 +7,27 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CategoryDetailsEditComponent } from './category-details-edit/category-details-edit.component';
 import { CategoryDetailsComponent} from './category-details/category-details.component';
+import { ItemListComponent } from './item-list/item-list.component';
+import { ItemEditComponent } from './item-edit/item-edit.component';
+import { LogComponent } from './log/log.component';
+import {AddCategoryComponent} from './add-category/add-category.component';
+import {AddItemComponent} from './add-item/add-item.component';
+import {ItemDetailsComponent} from './item-details/item-details.component';
+import {GenerateReportComponent} from './generate-report/generate-report.component';
 const routes: Routes = [
       { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'catDetailEdit/:id', component: CategoryDetailsEditComponent },
     { path: 'catDetail/:id', component: CategoryDetailsComponent },
+    { path: 'itemEdit/:id', component: ItemEditComponent },
+    { path: 'log/:id', component: LogComponent },
+    { path: 'addCategory', component: AddCategoryComponent },
+    { path: 'addItem', component: AddItemComponent },
+    { path: 'itemDetails/:id',  component:ItemDetailsComponent},
+    { path: 'generateReport', component:GenerateReportComponent}
     // otherwise redirect to home
-    { path: '**', redirectTo: '' }
+   // { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

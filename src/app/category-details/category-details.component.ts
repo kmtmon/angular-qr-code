@@ -19,22 +19,30 @@ export class CategoryDetailsComponent implements OnInit {
     private editrouter: Router
   ) { }
 
-    ngOnInit() {
-      this.getCat();
-    }
-  
-    getCat(): void {
-      const id = +this.route.snapshot.paramMap.get('id');
-      this.messageService.add("category details: id="+id);
-      this.catService.getCat(id)
-        .subscribe(cat => this.category = cat); 
-    }
-    goBack(): void {
-      this.location.back();
-    }
-    editCategory() {
-      this.editrouter.navigateByUrl('/catDetailEdit/'+this.category.id);
-};
+  ngOnInit() {
+    this.getCat();
+  }
 
+  getCat(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.catService.getCat(id)
+      .subscribe(cat => this.category = cat); 
+  }
+
+  getId() : number{
+    const id = +this.route.snapshot.paramMap.get('id');
+    return id;
+  }
+  goBack(): void {
+    this.location.back();
+  }
+
+  editCategory() {
+    this.editrouter.navigateByUrl('/catDetailEdit/'+this.category.id);
+  }
+  
+
+  elementType : 'url' | 'canvas' | 'img' = 'url';
+  value : string =   "category-"+this.getId();
 
 }

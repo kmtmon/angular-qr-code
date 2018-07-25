@@ -13,7 +13,6 @@ export class DashboardComponent implements OnInit {
 
   constructor(private catService: CategoryService,
     private messageService: MessageService
-
   ) { }
 
   ngOnInit() {
@@ -22,7 +21,6 @@ export class DashboardComponent implements OnInit {
   getCats(): void {
     //let len = this.catService.getCatsSize;
     var len:number = this.catService.getCatsSize();
-    this.messageService.add("dashboard: len "+len);
     this.catService.getCats()
       .subscribe(cats => this.categorys = cats.slice(0, len));
   }

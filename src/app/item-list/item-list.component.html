@@ -1,3 +1,27 @@
 <div class="itemList">
-  
+ 
+    <table >
+        <thead class="fixedHeader">
+            <tr>
+                <th>Serial No.</th>
+                <th>Location</th>
+
+                <th></th>
+                <th></th>
+            </tr>
+         </thead>
+        <tbody class="scrollContent">
+            
+            <tr *ngFor="let item of items">
+                <td>{{item.id}}</td>
+                <td>{{item.location}}</td>   
+                <td> <a routerLink="/log/{{item.id}}">Log</a></td>
+                <td> <a routerLink="/itemDetails/{{item.id}}">Details</a></td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
+<!--> 
+    *ngIf="{{item.qrCodeStatus}}; else p1"
+<ng-template #p1>Not generated</ng-template> <-->

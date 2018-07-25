@@ -1,0 +1,24 @@
+<app-current-user></app-current-user>
+<div class="container">
+    <h3>Add New Category</h3>
+    <form  [formGroup]="addCatForm" (ngSubmit)="onSubmit()">
+      <label for="catName" id="text"><b>Category Name</b></label>
+      <input type="text" formControlName="catName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.catName.errors }" />
+      <div *ngIf="submitted && f.catName.errors" class="invalid-feedback">
+        <div *ngIf="f.catName.errors.required">Category name is required</div>
+      </div>
+      <br />
+      <label for="description" id="text"><b>Description</b></label>
+      <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+      <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+        <div *ngIf="f.description.errors.required">Description is required</div>
+      </div>
+      <br />
+      <button [disabled]="loading" type="submit">Add Category</button>
+      <button (click)="goBack()">go back</button>
+    </form>
+</div>
+
+<div class="home">
+    <app-home></app-home>
+</div>

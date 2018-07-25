@@ -23,12 +23,17 @@ h4 {
 }
 .home{
   width:100%;
-
+}
+.topLink{
+  position: fixed;
+  left: 50%;
+/*   background-color: coral;*/
+  width:30%;
 }
 .grid{
   position: fixed;
   right: 10%;
-  top:22%;
+  top:35%;
 /*  background-color: coral;*/
   width:70%;
 }

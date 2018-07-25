@@ -1,0 +1,49 @@
+.itemList{
+    position: fixed;
+    right: 14%;
+    top:60%;
+    width:60%;
+    font-family:"Arial", Gadget, sans-serif;
+  
+}
+table{
+    border-spacing: 20px;
+    text-align: left;
+    border-bottom: 2px solid rgb(188, 192, 197);
+    border-collapse: collapse;
+    width:100%;
+    height: 400px;
+    overflow: auto;
+}
+th{
+    font-size: 1.4em;
+  
+    border-bottom: 2px solid rgb(188, 192, 197);
+    color:rgb(17, 72, 97);
+    height:50%;
+    width:45%;
+}
+td{
+    font-size: 1em;
+    border-bottom: 2px solid rgb(188, 192, 197);
+    color:rgb(0, 5, 7);
+    height:50%;
+    width:45%;
+}
+td a{
+    font-size:0.8em;
+}
+tr{
+    line-height: 40px;
+}
+thead.fixedHeader {
+	display: table;
+	overflow: auto;
+	width: 100%;
+}
+tbody.scrollContent {
+    display: block;
+	height: 200px;
+	overflow: auto;
+	width: 100%;
+}

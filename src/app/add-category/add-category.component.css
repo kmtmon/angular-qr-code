@@ -1,0 +1,14 @@
+.container{
+    position: fixed;
+    right: 10%;
+    top:22%;
+  /*  background-color: coral;*/
+    width:70%;
+    font-family:"Arial", Gadget, sans-serif;
+    font-size: 1.2em;
+  }
+  .invalid-feedback{
+    font-family:"Arial", Gadget, sans-serif;   
+    color:rgb(240, 112, 53);
+    font-size: 0.8em;
+  }

@@ -1,22 +1,23 @@
 
 <app-current-user></app-current-user>
 
-<div *ngIf="category" class="main">
+<div class="main">
     <button (click)="goBack()">go back</button>
-    <button (click)="editCategory()">Edit</button>
-  <h3>Product Name </h3>
-  <p>{{category.name}}</p>
- 
-   <h3>Description</h3>
-   <p>{{category.description}}</p>
+    <button (click)="editItem()">Edit</button>
+
+   <h3>Serial</h3>
+   <p>{{item.id}}</p>
   
+   <h3>Category</h3>
+   <p>{{cat}}</p>
   
+   <h3>Location</h3>
+   <p>{{item.Location}}</p>
+
   <ngx-qrcode [qrc-element-type]="elementType" [qrc-value] = "value">
   </ngx-qrcode>
 </div>
 <div class="home">
   <app-home></app-home>
 </div>
-<app-item-list></app-item-list>
-
 
