@@ -48,9 +48,10 @@ export class ItemDetailsComponent implements OnInit {
   
   getItemCat(){
     const id = +this.route.snapshot.paramMap.get('id');
+    const idStr = this.route.snapshot.paramMap.get('id');
     this.itemService. getItem(id)
       .subscribe(item => this.item = item); 
-    this.cat = this.catService.getCatName(id);
+    this.cat = this.catService.getCatName(idStr);
 
   }
   elementType : 'url' | 'canvas' | 'img' = 'url';

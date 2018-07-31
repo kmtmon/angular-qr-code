@@ -30,6 +30,9 @@ h4 {
 /*   background-color: coral;*/
   width:30%;
 }
+.container{
+  background-color:rgb(206, 110, 110);
+}
 .grid{
   position: fixed;
   right: 10%;
@@ -65,10 +68,23 @@ h4 {
 .grid-pad > [class*='col-']:last-of-type {
   padding-right: 20px;
 }
-@media (max-width: 600px) {
-  .module {
-    font-size: 10px;
-    max-height: 75px; }
+@media (max-width: 700px) {
+
+  .topLink{
+    position: fixed;
+    top:300px;
+    width:100%;
+    /* background-color: rgb(42, 131, 89);*/
+    width:100%;
+  }
+  .grid{
+    position: fixed;
+    top:330px;
+    width:100%;
+   
+  /*  background-color: coral;*/
+    width:100%;
+  }
 }
 @media (max-width: 1024px) {
   .grid {

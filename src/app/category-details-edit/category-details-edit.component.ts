@@ -23,7 +23,7 @@ export class CategoryDetailsEditComponent implements OnInit {
   }
 
   getCat(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.messageService.add("category details: id="+id);
     this.catService.getCat(id)
       .subscribe(cat => this.category = cat); 

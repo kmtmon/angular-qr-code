@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component,HostListener, OnInit,Inject ,ChangeDetectionStrategy} from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
+  @HostListener("window:beforeunload",["$event"])
+  clearLocalStorage(event){
+      localStorage.clear();
+  }
 }

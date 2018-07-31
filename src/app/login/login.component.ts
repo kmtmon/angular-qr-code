@@ -5,6 +5,11 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';
 import { AlertService } from '../services/alert.service';
 import {MessageService}  from '../services/message.service';
+import {CreateUsers} from '../services/createUsers';
+import { AngularFirestore, AngularFirestoreCollection } 
+from 'angularfire2/firestore';
+import {CreateCategory} from '../services/createCategory';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -22,7 +27,10 @@ export class LoginComponent implements OnInit {
       private router: Router,
       private authenticationService: AuthenticationService,
       private alertService: AlertService,
-      private messageService: MessageService
+      private messageService: MessageService,
+      private createUsers:CreateUsers,
+      private afs: AngularFirestore,
+      private createCat:CreateCategory,
     ) {}
 
   ngOnInit() {
@@ -30,7 +38,20 @@ export class LoginComponent implements OnInit {
           username: ['', Validators.required],
           password: ['', Validators.required]
       });
-
+      let userDoc = this.afs.firestore.collection(`user`);
+      userDoc.get().then((querySnapshot) => { 
+          querySnapshot.forEach((doc) => {
+              this.createUsers.addToUseList(doc.id,doc.get('email'),doc.get('password'));
+          })
+      })      
+       
+      let catDoc = this.afs.firestore.collection(`product`);
+      catDoc.get().then((querySnapshot) => { 
+        querySnapshot.forEach((doc) => {
+            this.createCat.addToCatList(doc.id,doc.get('name'),doc.get('desc'));
+        })
+    })    
+            
       // reset login status
       this.authenticationService.logout();
 
@@ -49,14 +70,12 @@ export class LoginComponent implements OnInit {
           return;
       }
 
-      this.loading = true;
-     
+      this.loading = true; 
       this.authenticationService.login(this.f.username.value, this.f.password.value)
           .pipe(first())
           .subscribe(
               data => {
                   this.router.navigate([this.returnUrl]);
-               //   this.alertService.success("username is "+this.f.username.value+"password is "+this.f.password.value);
               },
               error => {
                   this.alertService.error(error);

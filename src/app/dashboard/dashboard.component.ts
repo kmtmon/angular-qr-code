@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/category';
 import {CategoryService} from '../services/category.service';
 import { MessageService } from '../services/message.service'; 
+import {CreateCategory} from '../services/createCategory';
+import { AngularFirestore, AngularFirestoreCollection } 
+from 'angularfire2/firestore';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,18 +13,29 @@ import { MessageService } from '../services/message.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  categorys: Category[]=[];
-
+  categorys: Category[];
+  postsCol: AngularFirestoreCollection<Category>;
+  cats: Observable<Category[]>;
   constructor(private catService: CategoryService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private createCat:CreateCategory,
+    private afs: AngularFirestore
   ) { }
-
+  
   ngOnInit() {
+   // this.postsCol = this.afs.collection(`product`);
+   // this.cats=this.postsCol.valueChanges();
+  
     this.getCats();
+    for(let m=0;m<3;m++){
+      console.log("dashboard cat name "+this.categorys[m].name);
+    }
   }
+  
   getCats(): void {
     //let len = this.catService.getCatsSize;
     var len:number = this.catService.getCatsSize();
+    console.log("dashboard cats.length "+ len);
     this.catService.getCats()
       .subscribe(cats => this.categorys = cats.slice(0, len));
   }

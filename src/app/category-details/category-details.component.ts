@@ -24,13 +24,13 @@ export class CategoryDetailsComponent implements OnInit {
   }
 
   getCat(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.catService.getCat(id)
       .subscribe(cat => this.category = cat); 
   }
 
-  getId() : number{
-    const id = +this.route.snapshot.paramMap.get('id');
+  getId() : string{
+    const id = this.route.snapshot.paramMap.get('id');
     return id;
   }
   goBack(): void {

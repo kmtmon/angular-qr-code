@@ -27,7 +27,7 @@ export class LogComponent implements OnInit {
     this.getCat();
   }
   getCat(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.catService.getCat(id).subscribe(cat => this.cat = cat); 
   }
   getItem(): void {

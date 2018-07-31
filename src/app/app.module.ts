@@ -30,7 +30,10 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +63,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     NgxQRCodeModule,
     OwlDateTimeModule, 
     OwlNativeDateTimeModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireStorageModule,
+    AngularFirestoreModule
   ],
   providers: 
     [AuthGuard,

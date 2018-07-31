@@ -7,9 +7,7 @@ import { UserService } from '../services/user.service';
     templateUrl: 'home.component.html',
     selector: 'app-home',
     styleUrls: ['./home.component.css']
-}
-
-)
+})
 
 export class HomeComponent implements OnInit {
     currentUser: User;
@@ -22,7 +20,6 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.loadAllUsers();
     }
-
   
     private loadAllUsers() {
         this.userService.getAll().pipe(first()).subscribe(users => { 
