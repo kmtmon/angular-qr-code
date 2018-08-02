@@ -28,7 +28,7 @@ export class ItemEditComponent implements OnInit {
   }
 
   getItem(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.itemService.getItem(id).subscribe(item => this.item = item); 
   }
 

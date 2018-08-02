@@ -16,29 +16,36 @@ export class CategoryService {
     constructor(private messageService: MessageService,
       private createCat:CreateCategory,
       private afs: AngularFirestore
-    ) {
-      //this.CATLIST ;
-      
-     }
-
+    ) {}
+/*
     getCats(): Observable<Category[]> {
-      
         return of(this.CATLIST);
-      }
-    
-  
-    getCat(id: string): Observable<Category> {
+    }
+
+     getCat(id: string): Observable<Category> {
       return of(this.CATLIST.find(cat => cat.id === id));
+    }
+  */
+    getCats(): Category[] {
+      return (this.CATLIST);
+    }    
+    getCat(id: string): Category {
+      return (this.CATLIST.find(cat => cat.id === id));
     }
 
     getCatsSize(): number {
-    
       return (this.CATLIST.length);
     }
 
     getCatName(id: string): string {
-      var cat= this.CATLIST.find(cat => cat.id === id);
+      let cat = this.findMatchedCat(id);
       return cat.name;
     }
-
+    findMatchedCat(id:string):Category{
+      for(let m=0; m<this.CATLIST.length;m++){
+        if(this.CATLIST[m].id == id){
+          return this.CATLIST[m];
+        }
+      }
+    }
 }

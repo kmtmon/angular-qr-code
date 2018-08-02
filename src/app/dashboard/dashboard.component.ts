@@ -23,20 +23,13 @@ export class DashboardComponent implements OnInit {
   ) { }
   
   ngOnInit() {
-   // this.postsCol = this.afs.collection(`product`);
-   // this.cats=this.postsCol.valueChanges();
-  
     this.getCats();
-    for(let m=0;m<3;m++){
-      console.log("dashboard cat name "+this.categorys[m].name);
-    }
   }
   
   getCats(): void {
     //let len = this.catService.getCatsSize;
     var len:number = this.catService.getCatsSize();
-    console.log("dashboard cats.length "+ len);
-    this.catService.getCats()
-      .subscribe(cats => this.categorys = cats.slice(0, len));
+    this.categorys=this.catService.getCats();
+      
   }
 }

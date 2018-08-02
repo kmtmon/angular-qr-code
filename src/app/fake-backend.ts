@@ -9,26 +9,20 @@ import { User } from './models/user';
 import {CreateUsers} from './services/createUsers';
 @Injectable() 
 export class FakeBackendInterceptor implements HttpInterceptor {
-
     constructor(private messageService: MessageService,
         private afs: AngularFirestore,
         private createUsers:CreateUsers
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        
         let users = this.createUsers.users;
-        console.log("fake-backend: users.length "+users.length);
-
         return of(null).pipe(mergeMap(() => {
-
             // authenticate
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
                 // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
                     return user.username === request.body.username && user.password === request.body.password;
                 });
-                this.messageService.add("fake-backend: filteredUsers.length ="+ filteredUsers.length);
                 if (filteredUsers.length) {
                     // if login details are valid return 200 OK with user details and fake jwt token
                     let user = filteredUsers[0];
@@ -39,11 +33,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                         lastName: user.lastName,
                         token: 'fake-jwt-token'
                     };
-                    this.messageService.add("fake-backend: "+ user.id);
                     return of(new HttpResponse({ status: 200, body: body }));
                 } else {
                     // else return 400 bad request
-                    this.messageService.add("fake-backend: invalid user ");
                     return throwError({ error: { message: 'Username or password is incorrect' } });
                 }
             }
@@ -68,7 +60,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     let id = urlParts[urlParts.length - 1];
                     let matchedUsers = users.filter(user => { return user.id === id; });
                     let user = matchedUsers.length ? matchedUsers[0] : null;
-
                     return of(new HttpResponse({ status: 200, body: user }));
                 } else {
                     // return 401 not authorised if token is null or invalid

@@ -24,18 +24,20 @@ export class ItemDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this. getItem();
     this. getItemCat();
   }
 
   getItem(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.itemService. getItem(id)
+    const id = this.route.snapshot.paramMap.get('id');
+    console.log("item details id "+id);
+    this.itemService.getItem(id)
       .subscribe(item => this.item = item); 
   }
 
-  getId() : number{
-    const id = +this.route.snapshot.paramMap.get('id');
+  getId() : string{
+    const id = this.route.snapshot.paramMap.get('id');
     return id;
   }
   goBack(): void {
@@ -47,11 +49,10 @@ export class ItemDetailsComponent implements OnInit {
   }
   
   getItemCat(){
-    const id = +this.route.snapshot.paramMap.get('id');
-    const idStr = this.route.snapshot.paramMap.get('id');
+    const id = this.route.snapshot.paramMap.get('id');
     this.itemService. getItem(id)
       .subscribe(item => this.item = item); 
-    this.cat = this.catService.getCatName(idStr);
+    this.cat = this.catService.getCatName(this.item.categoryId);
 
   }
   elementType : 'url' | 'canvas' | 'img' = 'url';

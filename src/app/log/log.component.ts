@@ -1,11 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { ItemService } from '../services/item.service';
 import {Item } from '../models/item';
-import { CATLIST } from '../category_db';
-import {Category} from '../models/category';
-import {CategoryService } from '../services/category.service';
+import {Log } from '../models/log';
+import {LogService} from '../services/log.service';
+import {CreateLog} from '../services/createLog';
+import {CategoryService} from '../services/category.service';
+import {CreateItems} from '../services/createItems';
+import * as jsPDF from 'jspdf'
 
 @Component({
   selector: 'app-log',
@@ -13,29 +15,34 @@ import {CategoryService } from '../services/category.service';
   styleUrls: ['./log.component.css']
 })
 export class LogComponent implements OnInit {
-  @Input() item: Item;
-  cat:Category;
+  @Input() itemId: string;
+  logs:Log[]=[];
+  catName:string;
   constructor(
     private route: ActivatedRoute,
-    private itemService: ItemService,
+    private logService: LogService,
     private location: Location,
-    private catService: CategoryService
+    private createLog:CreateLog,
+    private catService:CategoryService,
+    private createItem:CreateItems
   ) { }
 
   ngOnInit() {
-    this.getItem();
-    this.getCat();
+    this.itemId = this.route.snapshot.paramMap.get('id');
+    let ITEMLIST=this.createItem.items;
+    let item = ITEMLIST.find(item => item.id === this.itemId)
+    let catId = item.categoryId;
+   // this.getLogs();
+    this.catName=this.catService.getCatName(catId);
+    this.getLogs();
   }
-  getCat(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.catService.getCat(id).subscribe(cat => this.cat = cat); 
-  }
-  getItem(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.itemService.getItem(id).subscribe(item => this.item = item); 
+ 
+  getLogs(): void {
+    this.logService.getLogs( this.itemId).subscribe(logs => this.logs = logs);; 
   }
   goBack(): void {
     this.location.back();
   }
+ 
 }
 

@@ -1,7 +1,11 @@
 export class Item {
-    id: number;
-    categoryId: number;
+    id: string;
+    categoryId: string;
     location: string;
 
-  //  constructor(id:string, categoryId:string)
+    constructor(id:string, categoryId:string, location:string){
+        this.id=id;
+        this.categoryId=categoryId;
+        this.location=location;
+    }
 }

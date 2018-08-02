@@ -25,8 +25,8 @@ export class CategoryDetailsComponent implements OnInit {
 
   getCat(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.catService.getCat(id)
-      .subscribe(cat => this.category = cat); 
+    this.category=this.catService.getCat(id);
+     
   }
 
   getId() : string{

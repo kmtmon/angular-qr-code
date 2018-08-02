@@ -1,7 +1,7 @@
 .itemList{
     position: fixed;
     right: 14%;
-    top:60%;
+    top:80%;
     width:60%;
     font-family:"Arial", Gadget, sans-serif;
   
@@ -16,7 +16,7 @@ table{
     overflow: auto;
 }
 th{
-    font-size: 1.4em;
+    font-size: 1.2em;
   
     border-bottom: 2px solid rgb(188, 192, 197);
     color:rgb(17, 72, 97);
