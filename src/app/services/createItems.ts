@@ -4,9 +4,9 @@ import { Item } from '../models/item';
 export class CreateItems {
   items:Item[]=[];
  
-  addToItemList(id:string, catId: string,location:string) {
+  addToItemList(id:string, catId: string,location:string,status:string) {
     let item:Item;
-    item = new Item(id,catId,location);
+    item = new Item(id,catId,location,status);
     this.items.push(item);
   }
  

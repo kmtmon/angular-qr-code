@@ -1,16 +1,18 @@
 <app-current-user></app-current-user>
-<div class="itemEdit">
+<div class="itemEdit" ng-controller="controller as ctrl">
 
     <h3>Category</h3>
-      
-    <select name="category">
-      <option *ngFor="let cat of categorys"  value="{{cat.name}}">{{cat.name}}</option>
+    <select (change)="getSelectedCat($event)">
+      <option >Select product</option>
+      <option  *ngFor="let cat of categorys" [value]="cat.id"  >{{cat.name}}</option>
     </select>   
-      <h3>Location</h3>
-    <input [(ngModel)]="item.location" placeholder="{{item.location}}"/>
-      
+    <h3>Location</h3>
+    <input [(ngModel)]="itemLocation" placeholder="{{item.location}}"/>
+    <h3>Status</h3>
+    <input [(ngModel)]="itemStatus" placeholder="{{item.status}}"/>
 
-  <button (click)="goBack()">go back</button>
+  <button (click)="goBack()">Cancel</button>
+  <button (click)="saveChange()">Save</button>
 </div>
 
 <div class="home">

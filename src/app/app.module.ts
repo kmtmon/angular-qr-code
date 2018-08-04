@@ -19,9 +19,9 @@ import {  ErrorInterceptor } from './error.interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CurrentUserComponent } from './current-user/current-user.component';
 import { ItemListComponent } from './item-list/item-list.component';
-import { CategoryDetailsEditComponent } from './category-details-edit/category-details-edit.component';
+import { CategoryDetailsEditComponent,CatConfirmDialog } from './category-details-edit/category-details-edit.component';
 import { CategoryDetailsComponent } from './category-details/category-details.component';
-import { ItemEditComponent } from './item-edit/item-edit.component';
+import { ItemEditComponent,ItemConfirmDialog } from './item-edit/item-edit.component';
 import { LogComponent } from './log/log.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddItemComponent } from './add-item/add-item.component';
@@ -34,7 +34,50 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { environment } from '../environments/environment';
+import {
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule,
+} from '@angular/material';
+
 @NgModule({
+  exports: [
+
+    MatDialogModule,
+
+  ],
   declarations: [
     AppComponent,
     LoginComponent,
@@ -51,8 +94,16 @@ import { environment } from '../environments/environment';
     AddCategoryComponent,
     AddItemComponent,
     ItemDetailsComponent,
-    GenerateReportComponent
+    GenerateReportComponent,
+    ItemConfirmDialog,
+    CatConfirmDialog
     
+  ],
+  entryComponents: [
+    ItemEditComponent,  
+    ItemConfirmDialog,
+    CategoryDetailsEditComponent,
+    CatConfirmDialog
   ],
   imports: [
     BrowserModule,

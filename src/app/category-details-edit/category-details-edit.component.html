@@ -1,19 +1,20 @@
 <app-current-user></app-current-user>
 
-<div *ngIf="category" class="main">
+<div *ngIf="orgCat" class="main">
   <table>
     <tr>
       <th><h3>Product Name </h3></th>
-      <th><input [(ngModel)]="category.id" placeholder="name"/></th>
+      <th><input [(ngModel)]="catName" placeholder="name"/></th>
     </tr>  
     <tr> 
       <th><h3>Description</h3></th>
-      <th><textarea [(ngModel)]="category.description" placeholder="description"></textarea></th>
+      <th><textarea [(ngModel)]="catDesc" placeholder="description"></textarea></th>
     </tr>   
    
   </table>
-  <button (click)="goBack()">go back</button>
-
+  <button (click)="saveChange()">Save</button>
+  <button (click)="goBack()">Cancel</button>
+  
 </div>
 
 <div class="home">

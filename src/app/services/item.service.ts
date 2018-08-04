@@ -13,8 +13,10 @@ export class ItemService   {
         private createItem:CreateItems
     ) { }
     ITEMLIST=this.createItem.items;
-    getItem(id: string): Observable<Item> {
+    getItemChange(id: string): Observable<Item> {
         return of(this.ITEMLIST.find(item => item.id === id));
     }
-
+    getItem(id: string): Item {
+        return (this.ITEMLIST.find(item => item.id === id));
+    }
 }
