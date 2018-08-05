@@ -14,6 +14,9 @@ import {CategoryService} from '../services/category.service';
 export class ItemDetailsComponent implements OnInit {
   @Input() item: Item;
   cat:string;
+  catId:string;
+  remark:string;
+  status:string;
   constructor(
     private route: ActivatedRoute,
     private itemService: ItemService,
@@ -27,6 +30,7 @@ export class ItemDetailsComponent implements OnInit {
     
     this. getItem();
     this. getItemCat();
+  
   }
 
   getItem(): void {
@@ -38,6 +42,7 @@ export class ItemDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     return id;
   }
+
   goBack(): void {
     this.location.back();
   }
@@ -50,9 +55,14 @@ export class ItemDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.item =this.itemService. getItem(id); 
     this.cat = this.catService.getCatName(this.item.categoryId);
+    this.catId=this.item.categoryId;
+    this.remark=this.item.location;
+    this.status=this.item.status;
   }
   elementType : 'url' | 'canvas' | 'img' = 'url';
-  value : string =   "item-"+this.getId();
+  value : string = "{\"id\":\""+this.getId()+"\",\"productID\":\""+
+                  this.catId+"\",\"remark\":\""+ this.remark+
+                  "\",\"status\":\""+this.status+"\"}";
 
 }
 

@@ -41,8 +41,4 @@ export class CategoryDetailsComponent implements OnInit {
     this.editrouter.navigateByUrl('/catDetailEdit/'+this.category.id);
   }
   
-
-  elementType : 'url' | 'canvas' | 'img' = 'url';
-  value : string =   "category-"+this.getId();
-
 }

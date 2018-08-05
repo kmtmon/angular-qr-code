@@ -17,14 +17,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let users = this.createUsers.users;
         return of(null).pipe(mergeMap(() => {
-            // authenticate
             if (request.url.endsWith('/users/authenticate') && request.method === 'POST') {
-                // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
                     return user.username === request.body.username && user.password === request.body.password;
                 });
                 if (filteredUsers.length) {
-                    // if login details are valid return 200 OK with user details and fake jwt token
                     let user = filteredUsers[0];
                     let body = {
                         id: user.id,
@@ -36,7 +33,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return of(new HttpResponse({ status: 200, body: body }));
                 } else {
                     // else return 400 bad request
-                    return throwError({ error: { message: 'Username or password is incorrect' } });
+                    alert('Username or password is incorrect');
                 }
             }
             
@@ -67,12 +64,10 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                 }
             }
 
-            // pass through any requests not handled above
             return next.handle(request);
             
         }))
 
-        // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
         .pipe(materialize())
         .pipe(delay(500))
         .pipe(dematerialize());
@@ -80,7 +75,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 }
 
 export let fakeBackendProvider = {
-    // use fake backend in place of Http service for backend-less development
     provide: HTTP_INTERCEPTORS,
     useClass: FakeBackendInterceptor,
     multi: true

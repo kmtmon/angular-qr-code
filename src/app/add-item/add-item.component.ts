@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -6,17 +6,18 @@ import { Location } from '@angular/common';
 import { AuthenticationService } from '../services/authentication.service';
 import { AlertService } from '../services/alert.service';
 import {MessageService}  from '../services/message.service';
-
+import { isDefined } from '@angular/compiler/src/util';
+import { AngularFirestore, AngularFirestoreCollection } 
+from 'angularfire2/firestore';
+import { Item } from '../models/item';
 @Component({
   selector: 'app-add-item',
   templateUrl: './add-item.component.html',
   styleUrls: ['./add-item.component.css']
 })
 export class AddItemComponent implements OnInit {
-  addItemForm: FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
+  public csvRecords: Item[]=[];
+  @ViewChild('fileImportInput') fileImportInput: any;
   constructor(   
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -24,28 +25,15 @@ export class AddItemComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
     private location: Location,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private afs: AngularFirestore,
+  ) { }
 
 
   ngOnInit() {
-    this.addItemForm = this.formBuilder.group({
-        catName: ['', Validators.required],
-        location: ['', Validators.required]
-    });
+   
   }
-
-// convenience getter for easy access to form fields
-get f() { return this.addItemForm.controls; }
-
-  onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.addItemForm.invalid) {
-        return;
-    }
-    this.loading = true;
-  }
+ 
   goBack(): void {
     this.location.back();
   }

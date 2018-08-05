@@ -1,22 +1,7 @@
 <app-current-user></app-current-user>
 <div class="container">
     <h3>Add New Item</h3>
-    <form  [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
-      <label for="catName" id="text"><b>Category Name</b></label>
-      <input type="text" formControlName="catName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.catName.errors }" />
-      <div *ngIf="submitted && f.catName.errors" class="invalid-feedback">
-        <div *ngIf="f.catName.errors.required">Category name is required</div>
-      </div>
-      <br />
-      <label for="location" id="text"><b>Location</b></label>
-      <input type="text" formControlName="location" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.location.errors }" />
-      <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
-        <div *ngIf="f.location.errors.required">location is required</div>
-      </div>
-      <br />
-      <button [disabled]="loading" type="submit">Add Item</button>
-      <button (click)="goBack()">go back</button>
-    </form>
+   
 </div>
 
 <div class="home">
