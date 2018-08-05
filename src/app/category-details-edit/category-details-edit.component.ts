@@ -51,50 +51,64 @@ export class CategoryDetailsEditComponent implements OnInit {
       { desc:this.catDesc,name:this.catName });
   }
   saveChange():void{
+    let matchedIndex:number;
+    let ifok:boolean;
     if(this.catName!="" && this.catName!=" " && this.catDesc!="" &&  this.catDesc!=" "){
       this.messages="";
     }
     for(let i=0;i<this.createCat.cats.length;i++){
       if(this.createCat.cats[i].id == this.orgCat.id){
         if(this.catName=="" ||this.catName==" "){
-          this.messages +="Product name is a required field!<br />";
+          this.messages +="Product name is a required field!\n";
         }if(this.catDesc=="" || this.catDesc==" "){
-          this.messages+="Description is a required field!<br />";
+          this.messages+="Description is a required field!\n";
         }if(this.messages==""){
-          this.updateTodo(this.createCat.cats[i]);
-          this.createCat.cats[i].name=this.catName;
-          this.createCat.cats[i].description=this.catDesc;
+          matchedIndex=i;
+          
         }
       }
     }
     
     if(this.messages==""){
       const dialogRef = this.dialog.open(CatConfirmDialog, {
-        width: '250px', data:"Item successfully updated!"
+        width: '250px', data:"Are you sure to update product?"
       });
-      dialogRef.afterClosed().subscribe(()=>this.goBack());
+      dialogRef.afterClosed().subscribe(()=> {
+        ifok=dialogRef.componentInstance.ifOk;
+        console.log("ifok "+ifok);
+        if(ifok){
+          this.updateTodo(this.createCat.cats[matchedIndex]);
+          this.createCat.cats[matchedIndex].name=this.catName;
+          this.createCat.cats[matchedIndex].description=this.catDesc;
+          this.goBack();
+        }
+      });
     }else{
-      const dialogRef = this.dialog.open(CatConfirmDialog, {
-        width: '250px', data:this.messages
-      });
-      dialogRef.afterClosed();
+      alert(this.messages);
+     
     }
   }
 }
+
 
 @Component({
   selector: 'confirm_dialog',
   templateUrl: 'confirm_dialog.html',
 })
 export class CatConfirmDialog {
-
+  
+  ifOk:boolean;
   constructor(
     public dialogRef: MatDialogRef<CatConfirmDialog>,
     @Inject(MAT_DIALOG_DATA) public data: string
   ) {}
 
-  onNoClick(): void {
+  okClick(): void {
     this.dialogRef.close();
+    this.ifOk=true;
   }
-
+  cancel():void{
+    this.dialogRef.close();
+    this.ifOk=false;
+  }
 }

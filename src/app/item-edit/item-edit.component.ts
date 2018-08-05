@@ -12,6 +12,7 @@ import {CreateItems} from '../services/createItems';
 import {CreateCategory} from '../services/createCategory';
 import { isDefined } from '@angular/compiler/src/util';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-item-edit',
@@ -76,27 +77,37 @@ export class ItemEditComponent implements OnInit {
   }
   saveChange():void{
     let update=false;
+    let matchedIndex:number;
     for(let i=0;i<this.createItem.items.length;i++){
       if(this.createItem.items[i].id == this.item.id){
         if(this.itemStatus !=""){
-          this.updateTodo(this.createItem.items[i]);
-          this.createItem.items[i].categoryId=this.selectedCatId;
-          this.createItem.items[i].location=this.itemLocation;
-          this.createItem.items[i].status=this.itemStatus;
+          matchedIndex=i;
+          
           update=true;
         }
       }
     }
     if(update){
+      let ifok:boolean;
       const dialogRef = this.dialog.open(ItemConfirmDialog, {
-        width: '250px',data:"Item successfully updated!"
+        width: '250px',data:"Are you sure to update item?"
       });
-      dialogRef.afterClosed().subscribe(()=>this.goBack());
+      //dialogRef.afterClosed().subscribe(()=>this.goBack());
+     
+      dialogRef.afterClosed().subscribe(()=> {
+        ifok=dialogRef.componentInstance.ifOk;
+        console.log("ifok "+ifok);
+        if(ifok){
+          this.updateTodo(this.createItem.items[matchedIndex]);
+          this.createItem.items[matchedIndex].categoryId=this.selectedCatId;
+          this.createItem.items[matchedIndex].location=this.itemLocation;
+          this.createItem.items[matchedIndex].status=this.itemStatus;
+          this.goBack();
+        }
+      });
+     
     }else{
-      const dialogRef = this.dialog.open(ItemConfirmDialog, {
-        width: '250px',data:"Status is a required field"
-      });
-      dialogRef.afterClosed();
+      alert('Status is a required field');
     }
   }
 
@@ -108,14 +119,19 @@ export class ItemEditComponent implements OnInit {
   templateUrl: 'confirm_dialog.html',
 })
 export class ItemConfirmDialog {
-
+  
+  ifOk:boolean;
   constructor(
     public dialogRef: MatDialogRef<ItemConfirmDialog>,
     @Inject(MAT_DIALOG_DATA) public data: string
   ) {}
 
-  onNoClick(): void {
+  okClick(): void {
     this.dialogRef.close();
+    this.ifOk=true;
   }
-
+  cancel():void{
+    this.dialogRef.close();
+    this.ifOk=false;
+  }
 }
