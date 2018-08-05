@@ -52,7 +52,7 @@ export class AddCategoryComponent implements OnInit {
     for (let i = 1; i < csvRecordsArray.length; i++) {
       let data = csvRecordsArray[i].split('||');
        if(isDefined(data[0]) && isDefined(data[1])){
-        let cat: Category= new Category("",data[0],data[1]);
+        let cat: Category= new Category("",data[0],data[1],"");
         dataArr.push(cat);
        }
     }

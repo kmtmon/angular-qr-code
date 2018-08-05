@@ -39,7 +39,7 @@ export class AppComponent {
     let catDoc = this.afs.firestore.collection(`product`);
     catDoc.get().then((querySnapshot) => { 
         querySnapshot.forEach((doc) => {
-            this.createCat.addToCatList(doc.id,doc.get('name'),doc.get('desc'));
+            this.createCat.addToCatList(doc.id,doc.get('name'),doc.get('desc'),doc.get('imagePath'));
         })
     })    
    

@@ -1,21 +1,19 @@
 <app-current-user></app-current-user>
 <div class="container">
-    <div class="topLink">
-      <a routerLink="/addCategory">Add Category</a>||
-      <a routerLink="/addItem">Add Item</a>
+  <div class="topLink">
+    <a routerLink="/addCategory">Add Category</a>||
+    <a routerLink="/addItem">Add Item</a>
   </div>
-    <div class="grid">
-      <a *ngFor="let cat of categorys" class="col-1-4"
-      routerLink="/catDetail/{{cat.id}}">
-        <div class="module">
-          <h4>{{cat.name}}</h4>
-        </div>
-      </a>
-    </div>
+  <div class="grid">
+    <a *ngFor="let cat of categorys" class="col-1-4" routerLink="/catDetail/{{cat.id}}">
+      <div class="module">
+        <img src={{cat.imagePath}} width=50 height=50/>
+        <h4>{{cat.name}}</h4>
+      </div>
+    </a>
+  </div>
 </div>
 
 <div class="home">
-    <app-home></app-home>
+  <app-home></app-home>
 </div>
-
-

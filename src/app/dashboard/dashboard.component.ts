@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/category';
-import {CategoryService} from '../services/category.service';
-import { MessageService } from '../services/message.service'; 
-import {CreateCategory} from '../services/createCategory';
-import { AngularFirestore, AngularFirestoreCollection } 
-from 'angularfire2/firestore';
+import { CategoryService } from '../services/category.service';
+import { MessageService } from '../services/message.service';
+import { CreateCategory } from '../services/createCategory';
+import { AngularFirestore, AngularFirestoreCollection }
+  from 'angularfire2/firestore';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -18,18 +18,17 @@ export class DashboardComponent implements OnInit {
   cats: Observable<Category[]>;
   constructor(private catService: CategoryService,
     private messageService: MessageService,
-    private createCat:CreateCategory,
+    private createCat: CreateCategory,
     private afs: AngularFirestore
   ) { }
-  
+
   ngOnInit() {
     this.getCats();
   }
-  
+
   getCats(): void {
     //let len = this.catService.getCatsSize;
-    var len:number = this.catService.getCatsSize();
-    this.categorys=this.catService.getCats();
-      
+    var len: number = this.catService.getCatsSize();
+    this.categorys = this.catService.getCats();
   }
 }
