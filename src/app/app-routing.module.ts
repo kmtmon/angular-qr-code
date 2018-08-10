@@ -25,9 +25,9 @@ const routes: Routes = [
     { path: 'addCategory', component: AddCategoryComponent },
     { path: 'addItem', component: AddItemComponent },
     { path: 'itemDetails/:id',  component:ItemDetailsComponent},
-    { path: 'generateReport', component:GenerateReportComponent}
+    { path: 'generateReport', component:GenerateReportComponent},
     // otherwise redirect to home
-   // { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: 'dashboard' }
 ];
 
 @NgModule({

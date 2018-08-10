@@ -7,15 +7,19 @@ import { MessageService } from './message.service';
 import {CreateCategory} from '../services/createCategory';
 import { AngularFirestore, AngularFirestoreCollection } 
 from 'angularfire2/firestore';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Injectable({ providedIn: 'root' })
 
 export class CategoryService {
     CATLIST= this.createCat.cats;
     postsCol: AngularFirestoreCollection<Category>;
     cats: Observable<Category[]>;
+   
     constructor(private messageService: MessageService,
       private createCat:CreateCategory,
-      private afs: AngularFirestore
+      private afs: AngularFirestore,
+      private http: HttpClient
     ) {}
 
     getCatsChange(): Observable<Category[]> {
@@ -26,6 +30,9 @@ export class CategoryService {
       return of(this.CATLIST.find(cat => cat.id === id));
     }
   
+    getObsCatByName(name: string): Observable<Category> {
+      return of(this.CATLIST.find(cat => cat.name === name));
+    }
     getCats(): Category[] {
       return (this.CATLIST);
     }    
@@ -52,5 +59,38 @@ export class CategoryService {
           return this.CATLIST[m];
         }
       }
+    }
+
+    private handleError<T> (operation = 'operation', result?: T) {
+      return (error: any): Observable<T> => {
+        console.error(error); 
+        console.log('${operation} failed: ${error.message}');
+        return of(result as T);
+      };
+    }
+
+    searchCat(term: string): Observable<Category[]> {
+      console.log("term.trim(): "+term.trim());
+      let matchedCats:Category[]=[];
+      let found=false;
+      if (!term.trim()) {
+        return of([]);
+      }
+      for(let i=0; i<this.CATLIST.length;i++){
+        if(this.CATLIST[i].name.includes(term)){
+          console.log("this.CATLIST[i].name "+this.CATLIST[i].name);
+          matchedCats.push(this.CATLIST[i]);
+          found=true;
+        }
+      }
+      if(found)
+        return of(matchedCats);
+      else return of([]);
+      /*
+      return this.http.get<Category[]>(`${this.heroesUrl}/?name=${term}`).pipe(
+        tap(_ => console.log(`found cats matching "${term}"`)),
+        catchError(this.handleError<Category[]>('searchCats', []))
+      );
+      */
     }
 }

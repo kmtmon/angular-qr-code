@@ -5,7 +5,7 @@
     left:30%;
     width:100%;
     font-family:"Arial", Gadget, sans-serif;
-    font-size: 1.2em;
+    font-size: 1em;
     color:rgb(17, 72, 97);
 }
 input{
@@ -15,3 +15,16 @@ input{
     color:rgb(17, 72, 97);
  
 }
+@media (max-width: 700px) {
+
+    .itemEdit{
+      position: fixed;
+      top:300px;
+      width:100%;
+      /* background-color: rgb(42, 131, 89);*/
+      width:100%;
+    }
+   
+ 
+  }
+  

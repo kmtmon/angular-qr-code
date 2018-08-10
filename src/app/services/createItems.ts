@@ -10,4 +10,7 @@ export class CreateItems {
     this.items.push(item);
   }
  
+  clearItemList(){
+    this.items=[];
+  }
 }

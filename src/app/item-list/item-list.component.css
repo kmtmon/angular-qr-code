@@ -1,8 +1,8 @@
 .itemList{
     position: fixed;
-    right: 14%;
-    top:80%;
-    width:60%;
+    right: 8%;
+    top:70%;
+    width:65%;
     font-family:"Arial", Gadget, sans-serif;
   
 }
@@ -21,14 +21,14 @@ th{
     border-bottom: 2px solid rgb(188, 192, 197);
     color:rgb(17, 72, 97);
     height:50%;
-    width:45%;
+    width:37%;
 }
 td{
     font-size: 1em;
     border-bottom: 2px solid rgb(188, 192, 197);
     color:rgb(0, 5, 7);
     height:50%;
-    width:45%;
+    width:37%;
 }
 td a{
     font-size:0.8em;

@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild  } from '@angular/core';
+import { Component, OnInit,ViewChild,Inject  } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { Category } from '../models/category';
 import { isDefined } from '@angular/compiler/src/util';
 import { AngularFirestore, AngularFirestoreCollection } 
 from 'angularfire2/firestore';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
@@ -30,6 +30,7 @@ export class AddCategoryComponent implements OnInit {
     private location: Location,
     private messageService: MessageService,
     private afs: AngularFirestore,
+    public dialog: MatDialog
   ) { }
 
 
@@ -52,7 +53,7 @@ export class AddCategoryComponent implements OnInit {
     for (let i = 1; i < csvRecordsArray.length; i++) {
       let data = csvRecordsArray[i].split('||');
        if(isDefined(data[0]) && isDefined(data[1])){
-        let cat: Category= new Category("",data[0],data[1]);
+        let cat: Category= new Category("",data[0],data[1],"");
         dataArr.push(cat);
        }
     }
@@ -90,19 +91,56 @@ export class AddCategoryComponent implements OnInit {
   }
 
   submit(){
-    console.log("record len "+this.csvRecords.length);
-    for(let i=0;i< this.csvRecords.length;i++){
-      console.log( "record name: "+this.csvRecords[i].name+" record desc: "+this.csvRecords[i].description);
-      this.afs.collection('product').add({'name': this.csvRecords[i].name, 'desc': this.csvRecords[i].description});
-    }
     if(this.csvRecords.length ==0){
       alert('No valid record in imported file!');
+      this.fileReset();
     }else{
-      alert('Products successfully added!');
-      this.goBack();
-    }
+      
+        let ifok:boolean;
+        const dialogRef = this.dialog.open(CatAddConfirmDialog, {
+          width: '250px',data:"Are you sure to add new product?"
+        });
+       
+        dialogRef.afterClosed().subscribe(()=> {
+          ifok=dialogRef.componentInstance.ifOk;
+          if(ifok){
+            for(let i=0;i< this.csvRecords.length;i++){
+              this.afs.collection('product').add({'name': this.csvRecords[i].name, 'desc': this.csvRecords[i].description});
+            }
+            alert('Products successfully added!');
+            this.goBack();
+          }
+          if(!ifok){
+            this.fileReset();
+          }
+        });
+      }
   }
+
+
   goBack(): void {
     this.location.back();
+  }
+}
+
+@Component({
+  selector: 'confirm_dialog',
+  templateUrl: 'confirm_dialog.html',
+})
+export class CatAddConfirmDialog {
+  
+  ifOk:boolean;
+  constructor(
+    public dialogRef: MatDialogRef<CatAddConfirmDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: string
+  ) {}
+
+  okClick(): void {
+    this.dialogRef.close();
+    this.ifOk=true;
+  }
+  cancel():void{
+    this.dialogRef.close();
+    this.ifOk=false;
   }
 }

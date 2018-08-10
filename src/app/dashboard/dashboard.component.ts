@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from '../models/category';
-import {CategoryService} from '../services/category.service';
-import { MessageService } from '../services/message.service'; 
-import {CreateCategory} from '../services/createCategory';
-import { AngularFirestore, AngularFirestoreCollection } 
-from 'angularfire2/firestore';
+import { CategoryService } from '../services/category.service';
+import { MessageService } from '../services/message.service';
+import { CreateCategory } from '../services/createCategory';
+import { AngularFirestore, AngularFirestoreCollection }
+  from 'angularfire2/firestore';
 import { Observable, of } from 'rxjs';
+import {CreateItems } from '../services/createItems'; 
+import {Log } from '../models/log';
+import {Item } from '../models/item';
+import {LogService} from '../services/log.service';
+import {CreateLog} from '../services/createLog';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,18 +23,34 @@ export class DashboardComponent implements OnInit {
   cats: Observable<Category[]>;
   constructor(private catService: CategoryService,
     private messageService: MessageService,
-    private createCat:CreateCategory,
-    private afs: AngularFirestore
+    private createCat: CreateCategory,
+    private afs: AngularFirestore,
+    private createItems:CreateItems,
+    private logService: LogService,
+    private createLog:CreateLog
   ) { }
-  
+
   ngOnInit() {
+    this.messageService.add("dashboard....");
     this.getCats();
+    this.createItems.clearItemList();
+    console.log("dashboard======== ");
+    let itemDoc = this.afs.firestore.collection(`item`);
+    itemDoc.get().then((querySnapshot) => { 
+        querySnapshot.forEach((doc) => {
+            this.createItems.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
+            
+          })
+    })       
+   
   }
-  
+  updateLog() {
+    this.createItems.items;
+    this.logService.LOGLIST;
+  }
   getCats(): void {
     //let len = this.catService.getCatsSize;
-    var len:number = this.catService.getCatsSize();
-    this.categorys=this.catService.getCats();
-      
+    var len: number = this.catService.getCatsSize();
+    this.categorys = this.catService.getCats();
   }
 }

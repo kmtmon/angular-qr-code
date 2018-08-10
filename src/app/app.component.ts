@@ -36,25 +36,23 @@ export class AppComponent {
             })
         })    
     }
-    let catDoc = this.afs.firestore.collection(`product`);
-    catDoc.get().then((querySnapshot) => { 
-        querySnapshot.forEach((doc) => {
-            this.createCat.addToCatList(doc.id,doc.get('name'),doc.get('desc'));
-        })
-    })    
-   
-    let itemDoc = this.afs.firestore.collection(`item`);
-    itemDoc.get().then((querySnapshot) => { 
-        querySnapshot.forEach((doc) => {
-            this.createItems.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
-        })
-    })       
-
+    this.createCat.clearCatList();
+    if(this.createCat.cats.length == 0){
+        let catDoc = this.afs.firestore.collection(`product`);
+        catDoc.get().then((querySnapshot) => { 
+            querySnapshot.forEach((doc) => {
+                this.createCat.addToCatList(doc.id,doc.get('name'),doc.get('desc'),doc.get('imagePath'));
+            })
+        })    
+    }
+    this.createLog.clearLogList();
+    if(this.createLog.logRec.length == 0){
     let logDoc = this.afs.firestore.collection(`log`);
-    logDoc.get().then((querySnapshot) => { 
-        querySnapshot.forEach((doc) => {
-            this.createLog.addToLogList(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'));
-        })
-    }) 
+        logDoc.get().then((querySnapshot) => { 
+            querySnapshot.forEach((doc) => {
+                this.createLog.addToLogList(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'));
+            })
+        }) 
+    }
   }
 }

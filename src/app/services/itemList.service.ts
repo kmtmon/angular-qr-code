@@ -12,13 +12,13 @@ export class ItemListService{
     constructor(private messageService: MessageService,
         private createItem:CreateItems
     ) { }
-    getItems(catid: string): Observable<Item[]> {
+    getItems(catid: string): Item[] {
         let items: Item[] = [];
         for (var i = 0; i < this.ITEMLIST.length; i++) {
             if(this.ITEMLIST[i].categoryId===catid){
                 items.push(this.ITEMLIST[i]);
             }
         }
-        return of(items);
+        return (items);
     }
 }

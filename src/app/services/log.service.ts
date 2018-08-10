@@ -14,14 +14,14 @@ export class LogService   {
         private createLog:CreateLog
     ) { }
   
-    getLogs(itemId: string): Observable<Log[]> {
+    getLogs(itemId: string): Log[] {
         let Logs: Log[] = [];
         for (var i = 0; i < this.LOGLIST.length; i++) {
             if(this.LOGLIST[i].itemId===itemId){
                 Logs.push(this.LOGLIST[i]);
             }
         }
-        return of(Logs);
+        return (Logs);
     }
-
+ 
 }

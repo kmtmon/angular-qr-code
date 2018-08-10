@@ -4,10 +4,13 @@ import { Category } from '../models/category';
 export class CreateCategory {
   cats:Category[]=[];
  
-  addToCatList(id:string, name:string, desc:string) {
+  addToCatList(id:string, name:string, desc:string, imagePath:string) {
     let cat:Category;
-    cat = new Category(id,name,desc);
+    cat = new Category(id,name,desc,imagePath);
     this.cats.push(cat);
   }
- 
+  clearCatList(){
+    this.cats=[];
+    console.log("cat cleared");
+  }
 }

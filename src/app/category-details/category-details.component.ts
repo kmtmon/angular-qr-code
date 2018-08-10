@@ -4,7 +4,9 @@ import { Location } from '@angular/common';
 import { CategoryService } from '../services/category.service';
 import {Category } from '../models/category';
 import { MessageService } from '../services/message.service'; 
-
+import { AngularFirestore, AngularFirestoreCollection } 
+from 'angularfire2/firestore';
+import {CreateCategory} from '../services/createCategory';
 @Component({
   selector: 'app-category-details',
   templateUrl: './category-details.component.html',
@@ -16,7 +18,9 @@ export class CategoryDetailsComponent implements OnInit {
     private catService: CategoryService,
     private location: Location,
     private messageService: MessageService,
-    private editrouter: Router
+    private editrouter: Router,
+    private afs: AngularFirestore,
+    private createCat:CreateCategory
   ) { }
 
   ngOnInit() {
@@ -24,9 +28,23 @@ export class CategoryDetailsComponent implements OnInit {
   }
 
   getCat(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.category=this.catService.getCat(id);
+    let catDoc = this.afs.firestore.collection(`product`);
+   
+    if(this.createCat.cats.length == 0){
+      catDoc.get().then((querySnapshot) => { 
+        let tempcats:Category[]=[];
+          querySnapshot.forEach((doc) => {
+              let tempcat = new Category(doc.id,doc.get('name'),doc.get('desc'),doc.get('imagePath'));
+              tempcats.push(tempcat);
+          })
+          const id = this.route.snapshot.paramMap.get('id');
+          this.category =tempcats.find(cat => cat.id === id);
+      })   
      
+    }else{
+      const id = this.route.snapshot.paramMap.get('id');
+      this.category=this.catService.getCat(id);
+    }
   }
 
   getId() : string{
@@ -39,6 +57,7 @@ export class CategoryDetailsComponent implements OnInit {
 
   editCategory() {
     this.editrouter.navigateByUrl('/catDetailEdit/'+this.category.id);
+
   }
   
 }
