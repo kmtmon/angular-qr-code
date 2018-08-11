@@ -1,21 +1,10 @@
 body {
     font-family:"Arial", Gadget, sans-serif;
 }
-/*
-.sidenav {
-    width: 180px;
-    height: 100%;
-    position: fixed;
-    z-index: 1;
-    top:0;
-    left: 0;
-    background: #eee;
-    overflow-x: hidden;
-    padding: 8px 0;
-}*/
 
 .sidenav {
-    width:12%;
+    position:fixed;
+    width:170px;
    
 }
 .menuitem {
@@ -31,7 +20,7 @@ body {
 .sidenav a {
     padding: 10px 12px 10px 20px;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 17px;
     color: rgb(19, 107, 136);
     display: block;
     
@@ -41,7 +30,7 @@ body {
     color: #052b4b;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 800px) {
     .sidenav {
         padding-top: 15px;
         width:100%;

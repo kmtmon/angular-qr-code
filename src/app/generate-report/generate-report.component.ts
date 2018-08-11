@@ -49,6 +49,10 @@ export class GenerateReportComponent implements OnInit {
   }
 
   download() {
+    var doc = new jsPDF('p','pt','a4');
+    doc.setFontSize(15);
+    doc.text(10, 20, "Header");
+    doc.setFontSize(10);
     let logs=this.logService.LOGLIST;
     let users=this.createUser.users;
     let date = new Date(this.dateTime1);
@@ -65,12 +69,12 @@ export class GenerateReportComponent implements OnInit {
       }
     }
 
-    var doc = new jsPDF('p','pt','a4');
-    doc.text(10, 20, text);
+    
+    doc.text(20, 30, text);
    
    // doc.setFont("courier");
    // doc.setTextColor(255,20, 100);
-    doc.setFontSize(5);
+    
     doc.addPage();
     doc.save('Report'+currentDateStr+'.pdf');
     

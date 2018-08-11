@@ -1,11 +1,12 @@
-<div id="container">
+<div class="container">
   <!-->
   <p>Search Product
   <input #searchBox id="search-box" [(ngModel)]="searchCat" />
   <button (click)="search()">Search</button>
 </p>  
  <-->
- <p>Search product </p>
+
+ <p>Search product: </p>
  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
  
   <ul class="search-result"> 

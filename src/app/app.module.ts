@@ -72,6 +72,7 @@ import {
   MatTreeModule,
 } from '@angular/material';
 import { SearchCatComponent } from './search-cat/search-cat.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   exports: [
@@ -100,7 +101,8 @@ import { SearchCatComponent } from './search-cat/search-cat.component';
     CatConfirmDialog,
     CatAddConfirmDialog,
     ItemAddConfirmDialog,
-    SearchCatComponent
+    SearchCatComponent,
+    SettingsComponent
   ],
   entryComponents: [
     ItemEditComponent,  
