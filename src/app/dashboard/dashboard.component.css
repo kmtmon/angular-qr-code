@@ -38,31 +38,31 @@ h4 {
 .grid{
   position: fixed;
   right: 8%;
-  top:30%;
+  top:230px;
 /*  background-color: coral;*/
   width:70%;
 }
 .col-1-4 {
   position: relative;
-  width: 130px;
+  width: 140px;
   margin-right: 1.5em;
   margin-left: 0.5em;
   margin-bottom: 1em;
 }
 .module {
-  padding: 15px;
+  padding: 18px;
   text-align: center;
   border:solid;
   border-width: 1px 1px 1px 1px;
   border-color: rgb(204, 214, 233);
   color: rgb(5, 5, 5);
-  max-height: 120px;
-  min-width: 120px;
+  max-height: 140px;
+  min-width: 140px;
   font-size: 1em;
   border-radius: 2px;
 }
 .module:hover {
-  background-color: #eee;
+  border-color: rgb(121, 157, 223);
   cursor: pointer;
   color: #607d8b;
 }

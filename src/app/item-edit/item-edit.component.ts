@@ -86,7 +86,7 @@ export class ItemEditComponent implements OnInit {
   getCurrentUser():string{
     let user=localStorage.getItem('currentUser');
     let userStr:string[] = user.split(',');
-    let userNameStr = userStr[1];
+    let userNameStr = userStr[0];
     let unstr:string[]=userNameStr.split('\"');
     console.log("unstr "+unstr[3]);
     return unstr[3];
@@ -136,7 +136,7 @@ export class ItemEditComponent implements OnInit {
           this.createItem.items[matchedIndex].categoryId=this.selectedCatId;
           this.createItem.items[matchedIndex].location=this.itemLocation;
           this.createItem.items[matchedIndex].status=this.itemStatus;
-         // this.afs.collection('log').add({'id':null,'itemId':this.createItem.items[matchedIndex].id, 'remark': this.itemLocation,'status':this.itemStatus,'timestamp':currentDate,'userId':this.getCurrentUser()});
+          this.afs.collection('log').add({'id':null,'itemId':this.createItem.items[matchedIndex].id, 'remark': this.itemLocation,'status':this.itemStatus,'timestamp':currentDate,'userId':this.getCurrentUser()});
           this.goBack();
         }
       });

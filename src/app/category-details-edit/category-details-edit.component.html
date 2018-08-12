@@ -3,18 +3,31 @@
 <div *ngIf="orgCat" class="main">
   <table>
     <tr>
-      <th><h3>Product Name </h3></th>
-      <th><input [(ngModel)]="catName" placeholder="name"/></th>
-    </tr>  
-    <tr> 
-      <th><h3>Description</h3></th>
-      <th><textarea [(ngModel)]="catDesc" placeholder="description"></textarea></th>
-    </tr>   
-   
+      <th>
+        <h3>Product Name </h3>
+      </th>
+      <th>
+        <input [(ngModel)]="catName" placeholder="name" />
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <h3>Description</h3>
+      </th>
+      <th>
+        <textarea [(ngModel)]="catDesc" placeholder="description"></textarea>
+      </th>
+    </tr>
+    <tr>
+      <input type="file" (change)="upload($event)" accept=".png,.jpg" />
+      <div>{{ uploadPercent | async }}</div>
+      <a [href]="downloadURL | async">{{ downloadURL | async }}</a>
+    </tr>
+
   </table>
   <button (click)="saveChange()">Save</button>
   <button (click)="goBack()">Cancel</button>
-  
+
 </div>
 
 <div class="home">

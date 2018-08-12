@@ -1,12 +1,20 @@
 import { Component, OnInit ,Inject} from '@angular/core';
 import * as jsPDF from 'jspdf';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NumberSymbol } from '@angular/common';
 import {Log } from '../models/log';
+import {User } from '../models/user';
+import {Item } from '../models/item';
+import {Category } from '../models/category';
 import {LogService} from '../services/log.service';
 import {CreateLog} from '../services/createLog';
 import { timestamp } from 'rxjs/operators';
 import {MessageService } from '../services/message.service';
 import {CreateUsers} from '../services/createUsers';
+import {CreateCategory} from '../services/createCategory';
+import { AngularFirestore, AngularFirestoreCollection } 
+from 'angularfire2/firestore';
+import { CreateItems } from '../services/createItems';
+import { isDefined } from '@angular/compiler/src/util';
 @Component({
   selector: 'app-generate-report',
   templateUrl: './generate-report.component.html',
@@ -18,64 +26,216 @@ import {CreateUsers} from '../services/createUsers';
 })
 export class GenerateReportComponent implements OnInit {
   dateTime1:string;
-  matchedlogs:Log[]=[];
+  users:User[]=[];
+  logs:Log[]=[];
+  cats:Category[]=[];
+  items:Item[]=[];
+  rowText:number;
+  rowLine:number;
+  breakDownIndex:number;
   constructor(
     @Inject('Window') private window: Window,
     private datePipe: DatePipe,
     private messageService: MessageService,
     private logService: LogService,
-    private createUser:CreateUsers
+    private createUser:CreateUsers,
+    private createLog:CreateLog,
+    private createCat:CreateCategory,
+    private createItem:CreateItems,
+    private afs: AngularFirestore
   ) { 
     this.messageService.add("generate report.....");
   }
 
   ngOnInit() {
-
+    this.getAllData();
   }
 
-  getMatchedLogs(){
+  getAllData(){
     
+    let catDoc = this.afs.firestore.collection(`product`);
    
-    let logs=this.logService.LOGLIST;
-    let date = new Date(this.dateTime1);
-    console.log(date.getTime());
-    var selectedts = date.getTime();
-    for (let i = 0; i <logs.length; i++) {
-      var logtms =+logs[i].timestamp;
-      if(logtms<=selectedts){
-        this.matchedlogs.push(logs[i]);
+    if(this.createCat.cats.length == 0){
+      catDoc.get().then((querySnapshot) => { 
+        let tempcats:Category[]=[];
+          querySnapshot.forEach((doc) => {
+              let tempcat = new Category(doc.id,doc.get('name'),doc.get('desc'),doc.get('imagePath'));
+              tempcats.push(tempcat);
+          })
+          this.cats=tempcats;
+      })   
+     
+    }else{
+      this.cats=this.createCat.cats;
+    }
+
+    let userDoc = this.afs.firestore.collection(`user`);
+   
+    if(this.createUser.users.length == 0){
+      userDoc.get().then((querySnapshot) => { 
+        let tempUsers:User[]=[];
+          querySnapshot.forEach((doc) => {
+              let tempuser = new User(doc.id,doc.get('email'),doc.get('password'),"","");
+              tempUsers.push(tempuser);
+          })
+          this.users=tempUsers;
+      })   
+    }else{
+      this.users=this.createUser.users;
+    }
+
+    let logDoc = this.afs.firestore.collection(`log`);
+    if(this.createLog.logRec.length == 0){
+      logDoc.get().then((querySnapshot) => { 
+        let tempLogs:Log[]=[];
+          querySnapshot.forEach((doc) => {
+              let templog = new Log(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'));
+              tempLogs.push(templog);
+          })
+          this.logs=tempLogs;
+      })    
+    }else{
+      this.logs=this.createLog.logRec;
+    }
+
+
+    let itemDoc = this.afs.firestore.collection(`item`);
+    if(this.createLog.logRec.length == 0){
+      itemDoc.get().then((querySnapshot) => { 
+        let tempItems:Item[]=[];
+          querySnapshot.forEach((doc) => {
+              let tempitem = new Item(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
+              tempItems.push(tempitem);
+          })
+          this.items=tempItems;
+      })    
+    }else{
+      this.items=this.createItem.items;
+    }
+  }
+
+  getCatNameByItem(itemId:string):string{
+      let item = this.items.find(item => item.id==itemId);
+      if(!isDefined(item)){
+        console.log("item "+itemId+" has invalid cat");
+        return "Invalid";
+      }
+      else{
+        let catid = item.categoryId;
+        let cat =this.cats.find(cat => cat.id == catid);
+      
+        return cat.name;
+    }
+  }
+  createAPage(doc:jsPDF,rowText1:number,rowLine1y:number,logs:Log[],dateStr:string,date:Date,firstPage:boolean){
+    doc.setFontType("bold");
+    doc.setFontSize(12);
+    doc.text(16, rowText1, "Log Date");
+    doc.text(50, rowText1, "Item Code");
+    doc.text(105, rowText1, "Product");
+    doc.text(155, rowText1, "Remark");
+    doc.text(210, rowText1, "Status");
+    doc.text(250, rowText1, "Modified by");
+
+    doc.line(10, rowLine1y, 290, rowLine1y);
+
+    let gapBtwTextLine = 3;
+    let line0x = 10;
+    let line1x = 37;
+    let line2x = 90;
+    let line3x = 140;
+    let line4x = 190;
+    let line5x = 240;
+
+    doc.setFontType("normal");
+    doc.setFontSize(11);
+    let username="";
+    let maxLen=0;
+    if(!firstPage){
+      this.rowText = rowText1;
+      this.rowLine = rowLine1y;
+    }
+    for (let i = this.breakDownIndex; i <logs.length; i++) {
+      let logDate = new Date(this.datePipe.transform(logs[i].timestamp,'yyyy-MM-dd h:mm:ss'));
+      dateStr= this.datePipe.transform(logDate,'yyyy-MM-dd');
+     
+      if(logDate <= date){
+        let user = this.users.find(user => user.id === logs[i].userId);
+        let catName = this.getCatNameByItem(logs[i].itemId);
+        this.rowText += 10;
+        this.rowLine += 10;
+        doc.text(line0x+gapBtwTextLine, this.rowText, dateStr);
+        doc.text(line1x+gapBtwTextLine, this.rowText, logs[i].itemId);
+        catName= doc.splitTextToSize(catName,40);
+        doc.text(line2x+gapBtwTextLine, this.rowText, catName);
+        doc.text(line3x+gapBtwTextLine, this.rowText, logs[i].remark);
+        doc.text(line4x+gapBtwTextLine, this.rowText, logs[i].status);
+        username=user.username;
+        username= doc.splitTextToSize(username,40);
+        doc.text(line5x+gapBtwTextLine, this.rowText,username );
+        
+        if(username.length>catName.length)maxLen=username.length;
+        else if(username.length<catName.length)maxLen=catName.length;
+        else{
+          if( username.length==1 && catName.length==1) maxLen=0;
+          else maxLen = username.length;
+        }
+        if(maxLen > 0){
+          this.rowLine+=5*(maxLen-1);
+          this.rowText += 5*(maxLen-1);
+        }
+        doc.line(10, this.rowLine, 290, this.rowLine);
+        if(this.rowLine>180){
+          this.breakDownIndex=i+1;
+          break;
+        }
       }
     }
+    doc.line(10, 40, 10, this.rowLine);
+    doc.line(10, 40, 290, 40);
+    doc.line(290, 40, 290, this.rowLine);
+
+    doc.line(line1x, 40, line1x, this.rowLine);
+    doc.line(line2x, 40, line2x, this.rowLine);
+    doc.line(line3x, 40, line3x, this.rowLine);
+    doc.line(line4x, 40, line4x, this.rowLine);
+    doc.line(line5x, 40, line5x, this.rowLine);
+
+    doc.addPage();
   }
 
   download() {
-    var doc = new jsPDF('p','pt','a4');
-    doc.setFontSize(15);
-    doc.text(10, 20, "Header");
-    doc.setFontSize(10);
+    var doc = new jsPDF('landscape');
+    doc.setFont("helvetica");
+    doc.setFontType("bold");
+    doc.setFontSize(20);
+    doc.text(130, 20, "Item Log Report");
+
+    
     let logs=this.logService.LOGLIST;
-    let users=this.createUser.users;
+    
     let date = new Date(this.dateTime1);
     let currentDate = Date.now();
     let dateStr = "";
-    let currentDateStr=this.datePipe.transform(currentDate,'yyyy-MM-dd');
-    let text = "Log Date\tItem Code\tRemark\tStatus\tModified by\n";
-    for (let i = 0; i <logs.length; i++) {
-      let logDate = new Date(this.datePipe.transform(logs[i].timestamp,'yyyy-MM-dd'));
-      dateStr= this.datePipe.transform(logDate,'yyyy-MM-dd');
-      if(logDate <= date){
-        let user = users.find(user => user.id === logs[i].userId);
-        text = text + dateStr+"\t"+logs[i].itemId+"\t"+logs[i].remark+"\t"+logs[i].status+"\t"+user.username+"\n";
-      }
-    }
-
-    
-    doc.text(20, 30, text);
+    let currentDateStr=this.datePipe.transform(currentDate,'dd-MM-yyyy');
+    var logDate = new Date(date);
+    logDate.setDate(logDate.getDate() + 1);
+    doc.setFontType("normal");
+    doc.setFontSize(9);
+    doc.text(10,35,"Generated Date: "+currentDateStr);
+    doc.text(60,35,"Till :"+this.datePipe.transform(date,'dd-MM-yyyy'));
    
-   // doc.setFont("courier");
-   // doc.setTextColor(255,20, 100);
-    
-    doc.addPage();
+    let rowText1 = 50;
+    let rowLine1y = 55;
+    this.breakDownIndex=0;
+    this.rowText = rowText1;
+    this.rowLine = rowLine1y;
+    let firstPage=true;
+    this.createAPage(doc,rowText1,rowLine1y,logs,dateStr,logDate,firstPage);
+    if(this.rowLine > 170){
+      firstPage=false;
+      this.createAPage(doc,rowText1,rowLine1y,logs,dateStr,logDate,firstPage);
+    }
     doc.save('Report'+currentDateStr+'.pdf');
     
   }

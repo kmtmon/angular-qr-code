@@ -21,6 +21,7 @@ body {
     padding: 10px 12px 10px 20px;
     text-decoration: none;
     font-size: 17px;
+    font-weight: 500;
     color: rgb(19, 107, 136);
     display: block;
     
@@ -30,7 +31,7 @@ body {
     color: #052b4b;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 600px) {
     .sidenav {
         padding-top: 15px;
         width:100%;

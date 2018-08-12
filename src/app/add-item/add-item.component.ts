@@ -69,7 +69,7 @@ export class AddItemComponent implements OnInit {
   getCurrentUser():string{
     let user=localStorage.getItem('currentUser');
     let userStr:string[] = user.split(',');
-    let userNameStr = userStr[1];
+    let userNameStr = userStr[0];
     let unstr:string[]=userNameStr.split('\"');
     console.log("unstr "+unstr[3]);
     return unstr[3];

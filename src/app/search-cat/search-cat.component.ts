@@ -36,19 +36,5 @@ export class SearchCatComponent implements OnInit {
   search(term: string): void {
     this.searchTerms.next(term);
   }
-  search1(): void {
-    let found = false;
-    let cat:Category;
-    for(let i=0;i<this.categories.length;i++){
-      if(this.searchCat == this.categories[i].name){
-        found=true;
-        cat=this.categories[i];
-      }
-    }
-    if(found){
-      this.router.navigateByUrl('/catDetail/'+cat.id);
-    }else{
-      alert('Product not found!');
-    }
-  }
+
 }

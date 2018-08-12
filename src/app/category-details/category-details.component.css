@@ -21,3 +21,14 @@ tr{
     width:100%;
   
   }
+
+@media only screen and (max-width: 600px) {
+    .main{
+        position: fixed;
+        top:380px;
+        width:100%;
+        /* background-color: rgb(42, 131, 89);*/
+        width:100%;
+    }
+    
+}

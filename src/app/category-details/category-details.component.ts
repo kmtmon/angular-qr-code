@@ -29,7 +29,6 @@ export class CategoryDetailsComponent implements OnInit {
 
   getCat(): void {
     let catDoc = this.afs.firestore.collection(`product`);
-   
     if(this.createCat.cats.length == 0){
       catDoc.get().then((querySnapshot) => { 
         let tempcats:Category[]=[];
