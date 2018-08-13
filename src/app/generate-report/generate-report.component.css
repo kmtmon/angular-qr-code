@@ -1,23 +1,73 @@
 
 .container{
-    position: fixed;
-    right: 10%;
-    top:22%;
-    left:30%;
-    width:60%;
-    font-family:"Arial", Gadget, sans-serif;
-    font-size: 1.2em;
-    color:rgb(17, 72, 97);
-}
-@media (max-width: 800px) {
+  position: fixed;
+  right: 10%;
+  top:22%;
+  left:30%;
+  width:60%;
+  height:280px;
+  font-family:"Arial", Gadget, sans-serif;
+  font-size: 1.2em;
+  color:rgb(17, 72, 97);
 
-    .container{
-      position: fixed;
-      top:350px;
-      width:100%;
-      /* background-color: rgb(42, 131, 89);*/
-      width:100%;
-    }
+}
+
+.date{
+  float: left;
+  width: 100%;
+}
+.dateText{
+  float:left;
+  margin-right:45px;
+}
+
+.dateInput{
+  float:left;
+  margin-top: 24px;
+}
+
+.sort{
+  float: left;
+  width: 100%;
+}
+
+.sortText{
+  float:left;
+  margin-right:80px;
+}
+
+.sortSelect{
+  float:left;
+  margin-top: 24px;
+}
+
+.direction{
+  float:left;
+  width:100%;
+}
+.dirText{
+  float:left;
+  margin-right:20px;
+}
+
+.dirSelect{
+  float:left;
+  margin-top: 24px;
+}
+
+.button{
+  margin-top: 30px;
+  float: left;
+}
+@media (max-width: 600px) {
+
+  .container{
+    position: fixed;
+    top:350px;
+    width:100%;
+    /* background-color: rgb(42, 131, 89);*/
+    width:100%;
+  }
    
   }
   

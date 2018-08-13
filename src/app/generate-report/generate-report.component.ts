@@ -15,6 +15,7 @@ import { AngularFirestore, AngularFirestoreCollection }
 from 'angularfire2/firestore';
 import { CreateItems } from '../services/createItems';
 import { isDefined } from '@angular/compiler/src/util';
+
 @Component({
   selector: 'app-generate-report',
   templateUrl: './generate-report.component.html',
@@ -33,6 +34,11 @@ export class GenerateReportComponent implements OnInit {
   rowText:number;
   rowLine:number;
   breakDownIndex:number;
+  selectedBy:string;
+  direction:string;
+  selectedMethods=['Item code','Log date', 'Remark', 'Status'];
+  dirs=['Descending', 'Ascending'];
+  
   constructor(
     @Inject('Window') private window: Window,
     private datePipe: DatePipe,
@@ -52,9 +58,7 @@ export class GenerateReportComponent implements OnInit {
   }
 
   getAllData(){
-    
     let catDoc = this.afs.firestore.collection(`product`);
-   
     if(this.createCat.cats.length == 0){
       catDoc.get().then((querySnapshot) => { 
         let tempcats:Category[]=[];
@@ -64,13 +68,11 @@ export class GenerateReportComponent implements OnInit {
           })
           this.cats=tempcats;
       })   
-     
     }else{
       this.cats=this.createCat.cats;
     }
 
     let userDoc = this.afs.firestore.collection(`user`);
-   
     if(this.createUser.users.length == 0){
       userDoc.get().then((querySnapshot) => { 
         let tempUsers:User[]=[];
@@ -98,7 +100,6 @@ export class GenerateReportComponent implements OnInit {
       this.logs=this.createLog.logRec;
     }
 
-
     let itemDoc = this.afs.firestore.collection(`item`);
     if(this.createLog.logRec.length == 0){
       itemDoc.get().then((querySnapshot) => { 
@@ -115,16 +116,15 @@ export class GenerateReportComponent implements OnInit {
   }
 
   getCatNameByItem(itemId:string):string{
-      let item = this.items.find(item => item.id==itemId);
-      if(!isDefined(item)){
-        console.log("item "+itemId+" has invalid cat");
-        return "Invalid";
-      }
-      else{
-        let catid = item.categoryId;
-        let cat =this.cats.find(cat => cat.id == catid);
-      
-        return cat.name;
+    let item = this.items.find(item => item.id==itemId);
+    if(!isDefined(item)){
+      console.log("item "+itemId+" has invalid cat");
+      return "Invalid";
+    }
+    else{
+      let catid = item.categoryId;
+      let cat =this.cats.find(cat => cat.id == catid);
+      return cat.name;
     }
   }
   createAPage(doc:jsPDF,rowText1:number,rowLine1y:number,logs:Log[],dateStr:string,date:Date,firstPage:boolean){
@@ -157,7 +157,7 @@ export class GenerateReportComponent implements OnInit {
     }
     for (let i = this.breakDownIndex; i <logs.length; i++) {
       let logDate = new Date(this.datePipe.transform(logs[i].timestamp,'yyyy-MM-dd h:mm:ss'));
-      dateStr= this.datePipe.transform(logDate,'yyyy-MM-dd');
+      dateStr= this.datePipe.transform(logDate,'dd-MM-yyyy');
      
       if(logDate <= date){
         let user = this.users.find(user => user.id === logs[i].userId);
@@ -204,16 +204,48 @@ export class GenerateReportComponent implements OnInit {
     doc.addPage();
   }
 
+  getSortedVal(args){
+    this.selectedBy = args.target.value; 
+  }
+  
+  getDir(args){
+    this.direction = args.target.value; 
+  }
+
+  sortLogs():Log[]{
+    console.log("this.selectedBy "+this.selectedBy);
+    console.log("this.direction "+this.direction);
+    if(isDefined(this.selectedBy) && this.selectedBy != "--Select--"){
+      if(!isDefined(this.direction) || this.direction == "--Select--"){
+        alert('Invalid Sort direction!');
+      }
+    }
+    let dir:boolean;
+    if(this.direction == "Descending" )dir=true;
+    else dir=false;
+    //'Item code','Log date', 'Remark', 'Status','Modified by'
+    let sortedLog:Log[]=[];
+    console.log("this.selectedBy "+this.selectedBy);
+    switch(this.selectedBy){
+      case 'Item code': sortedLog=this.sortByItemId(dir);break;
+      case 'Log date': sortedLog=this.sortByDate(dir);break;
+      case 'Remark': sortedLog=this.sortByLocation(dir);break;
+      case 'Status': sortedLog=this.sortByStatus(dir);
+    }
+    return sortedLog;
+  }
+
   download() {
+    let sortedLog = this.sortLogs();
+    if(sortedLog.length==0) sortedLog=this.createLog.logRec;
+  // this.sortByDate();
+   //return;
     var doc = new jsPDF('landscape');
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(20);
     doc.text(130, 20, "Item Log Report");
-
-    
-    let logs=this.logService.LOGLIST;
-    
+ 
     let date = new Date(this.dateTime1);
     let currentDate = Date.now();
     let dateStr = "";
@@ -231,12 +263,114 @@ export class GenerateReportComponent implements OnInit {
     this.rowText = rowText1;
     this.rowLine = rowLine1y;
     let firstPage=true;
-    this.createAPage(doc,rowText1,rowLine1y,logs,dateStr,logDate,firstPage);
+    this.createAPage(doc,rowText1,rowLine1y,sortedLog,dateStr,logDate,firstPage);
     if(this.rowLine > 170){
       firstPage=false;
-      this.createAPage(doc,rowText1,rowLine1y,logs,dateStr,logDate,firstPage);
+      this.createAPage(doc,rowText1,rowLine1y,sortedLog,dateStr,logDate,firstPage);
     }
     doc.save('Report'+currentDateStr+'.pdf');
     
   }
+
+  sortByItemId(desc:boolean):Log[]{
+    let tempLogs = this.logs;
+    tempLogs.sort(function(a,b){
+      let a1 = a.itemId.toLowerCase();
+      let b1 = b.itemId.toLowerCase();
+      if(a1 > b1){
+        if(desc)return -1;
+        else return 1;
+      }else if(a1 < b1){
+        if(desc)return 1;
+        else return -1;
+      }
+      else return 0;
+    });
+    /*
+    for(let i=0; i<this.logs.length;i++){
+      console.log("item "+i+" "+this.logs[i].itemId);
+    }
+    */
+    return tempLogs;
+  }
+
+  sortByUser(desc:boolean):Log[]{
+    let tempLogs = this.logs;
+    tempLogs.sort(function(a,b){
+      if(a.userId > b.remark){
+        if(desc)return -1;
+        else return 1;
+      }else if(a.remark < b.remark){
+        if(desc)return 1;
+        else return -1;
+      }
+      else return 0;
+    });
+    /*
+    for(let i=0; i<this.logs.length;i++){
+      console.log("item "+i+" "+this.logs[i].remark);
+    }
+    */
+    return tempLogs;
+  }
+
+  sortByDate(desc:boolean):Log[]{
+    let tempLogs = this.logs;
+    tempLogs.sort(function(a,b){
+      if(a.timestamp > b.timestamp){
+        if(desc)return -1;
+        else return 1;
+      }else if(a.timestamp < b.timestamp){
+        if(desc)return 1;
+        else return -1;
+      }
+      else return 0;
+    });
+     /*
+    for(let i=0; i<this.logs.length;i++){
+      console.log("item "+i+" "+this.logs[i].timestamp);
+    }
+    */
+    return tempLogs;
+  }
+
+  sortByLocation(desc:boolean):Log[]{
+    let tempLogs = this.logs;
+    tempLogs.sort(function(a,b){
+      if(a.remark > b.remark){
+        if(desc)return -1;
+        else return 1;
+      }else if(a.remark < b.remark){
+        if(desc)return 1;
+        else return -1;
+      }
+      else return 0;
+    });
+    /*
+    for(let i=0; i<this.logs.length;i++){
+      console.log("item "+i+" "+this.logs[i].remark);
+    }
+    */
+    return tempLogs;
+  }
+
+  sortByStatus(desc:boolean):Log[]{
+    let tempLogs = this.logs;
+    tempLogs.sort(function(a,b){
+      if(a.status > b.status){
+        if(desc)return -1;
+        else return 1;
+      }else if(a.status < b.status){
+        if(desc)return 1;
+        else return -1;
+      }
+      else return 0;
+    });
+    /*
+    for(let i=0; i<this.logs.length;i++){
+      console.log("item "+i+" "+this.logs[i].status);
+    }*/
+    return tempLogs;
+  }
+
 }

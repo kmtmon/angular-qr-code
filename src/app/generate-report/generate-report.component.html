@@ -1,18 +1,47 @@
 <app-current-user></app-current-user>
 <div class="container">
  
-  <div class="example-wrapper">
-    <h2>Select Date</h2>
-    <label class="example-input-wrapper">
-        Date:
-        <input placeholder="Date:"
-               [(ngModel)]="dateTime1"
-               [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1">
-        <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-    </label> 
+  <div class="date">
+    <div class="dateText">
+      <h4>Select date</h4>
+    </div> 
+    <div class="dateInput">
+      <label class="example-input-wrapper">
+          <input placeholder="Date:"
+                [(ngModel)]="dateTime1"
+                [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1">
+          <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+      </label>
+    </div>
   </div>
-  <br />
-  <button (click)="download()">Download</button>
+
+  <div class="sort">
+    <div class="sortText">
+      <h4>Sort by</h4>
+    </div>
+    <div class="sortSelect">
+      <select (change)="getSortedVal($event)">
+          <option>--Select--</option>
+        <option *ngFor="let s of selectedMethods" [value]="s">{{s}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="direction">
+    <div class="dirText">
+      <h4>Sort direction</h4>
+    </div>
+    <div class="dirSelect">
+      <select (change)="getDir($event)">
+          <option>--Select--</option>
+          <option *ngFor="let d of dirs" [value]="d">{{d}}</option>
+      </select>
+      </div>
+  </div>
+
+  <div class="button">
+    <button (click)="download()">Download report</button>
+  </div>
 </div>
 <div class="home">
   <app-home></app-home>

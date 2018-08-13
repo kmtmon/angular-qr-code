@@ -71,7 +71,6 @@ export class AddItemComponent implements OnInit {
     let userStr:string[] = user.split(',');
     let userNameStr = userStr[0];
     let unstr:string[]=userNameStr.split('\"');
-    console.log("unstr "+unstr[3]);
     return unstr[3];
   }
   submit(){
