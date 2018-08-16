@@ -4,6 +4,17 @@ import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import {MessageService } from '../services/message.service';
 
+import { Category } from '../models/category';
+import { CategoryService } from '../services/category.service';
+import { CreateCategory } from '../services/createCategory';
+import { AngularFirestore, AngularFirestoreCollection }
+  from 'angularfire2/firestore';
+import { Observable, of } from 'rxjs';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
+
+
+
 @Component({
     templateUrl: 'home.component.html',
     selector: 'app-home',
@@ -13,10 +24,16 @@ import {MessageService } from '../services/message.service';
 export class HomeComponent implements OnInit {
     currentUser: User;
     users: User[] = [];
+	
+	categorys: Category[];
+  postsCol: AngularFirestoreCollection<Category>;
+  cats: Observable<Category[]>;
 
     constructor(private userService: UserService,
         private  messageService: MessageService,
-       
+       private catService: CategoryService,
+    private createCat: CreateCategory,
+    private afs: AngularFirestore
     ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
        this.messageService.add("home.....");
@@ -25,6 +42,7 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.loadAllUsers();
+		this.getCats();
     }
   
     private loadAllUsers() {
@@ -35,5 +53,13 @@ export class HomeComponent implements OnInit {
 
     getCurrentUser():User{
         return this.currentUser;
-    }
+    } 
+
+  
+  getCats(): void {
+    //let len = this.catService.getCatsSize;
+    var len: number = this.catService.getCatsSize();
+    this.categorys = this.catService.getCats();
+  }
+	
 }

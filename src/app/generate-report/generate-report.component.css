@@ -1,4 +1,8 @@
-
+.home{
+  display: inline;
+  float: left;
+  width: 20%; 
+}
 .container{
     position: fixed;
     right: 10%;

@@ -22,7 +22,9 @@ h4 {
   position: relative;
 }
 .home{
-  width:100%;
+  display: inline;
+  float: left;
+  width: 20%; 
 }
 .topLink{
   position: fixed;
