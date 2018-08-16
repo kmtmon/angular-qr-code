@@ -71,6 +71,7 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { ConsumerItemTrackingComponent } from './consumer-item-tracking/consumer-item-tracking.component';
 
 @NgModule({
   exports: [
@@ -96,7 +97,8 @@ import {
     ItemDetailsComponent,
     GenerateReportComponent,
     ItemConfirmDialog,
-    CatConfirmDialog
+    CatConfirmDialog,
+    ConsumerItemTrackingComponent
     
   ],
   entryComponents: [

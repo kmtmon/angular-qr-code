@@ -1,0 +1,15 @@
+<div class="loginPart">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    
+    <div class="container">
+      <label for="username" id="text"><b>Enter tracking number</b></label>
+      <br />
+      
+      <input type="text" formControlName="itemId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+      <br />
+      
+      <button [disabled]="loading" type="submit">Track</button>
+    </div>
+
+  </form>
+</div>
