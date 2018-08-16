@@ -1,7 +1,7 @@
 .main{
    
     position: fixed;
-    right: 10%;
+    right: 20%;
     top:22%;
     left:30%;
     width:60%;
@@ -21,3 +21,14 @@ tr{
     width:100%;
   
   }
+
+@media only screen and (max-width: 600px) {
+    .main{
+        position: fixed;
+        top:380px;
+        width:100%;
+        /* background-color: rgb(42, 131, 89);*/
+        width:100%;
+    }
+    
+}

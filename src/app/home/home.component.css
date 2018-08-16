@@ -3,9 +3,9 @@ body {
     font-family:"Arial", Gadget, sans-serif;
 }
 
-
 .sidenav {
-    width:12%;
+    position:fixed;
+    width:170px;
    
 }
 .menuitem {
@@ -21,7 +21,8 @@ body {
 .sidenav a {
     padding: 10px 12px 10px 20px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 17px;
+    font-weight: 500;
     color: rgb(19, 107, 136);
     display: block;
     
@@ -31,7 +32,7 @@ body {
     color: #052b4b;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 600px) {
     .sidenav {
         padding-top: 15px;
         width:100%;

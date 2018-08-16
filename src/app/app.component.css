@@ -3,12 +3,16 @@
   padding: 16px;
   background-color: rgb(19, 107, 136);
   text-align: left;
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: clip; 
 }
 h1 {
   font-size: 2em;
   color: rgb(238, 230, 230);
   margin-bottom: 0;
   font-family:"Arial Black", Gadget, sans-serif;
+
 }
 
 nav a {

@@ -23,8 +23,8 @@ import { CategoryDetailsEditComponent,CatConfirmDialog } from './category-detail
 import { CategoryDetailsComponent } from './category-details/category-details.component';
 import { ItemEditComponent,ItemConfirmDialog } from './item-edit/item-edit.component';
 import { LogComponent } from './log/log.component';
-import { AddCategoryComponent } from './add-category/add-category.component';
-import { AddItemComponent } from './add-item/add-item.component';
+import { AddCategoryComponent,CatAddConfirmDialog } from './add-category/add-category.component';
+import { AddItemComponent, ItemAddConfirmDialog } from './add-item/add-item.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { GenerateReportComponent } from './generate-report/generate-report.component';
@@ -72,6 +72,8 @@ import {
   MatTreeModule,
 } from '@angular/material';
 import { ConsumerItemTrackingComponent } from './consumer-item-tracking/consumer-item-tracking.component';
+import { SearchCatComponent } from './search-cat/search-cat.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   exports: [
@@ -98,14 +100,21 @@ import { ConsumerItemTrackingComponent } from './consumer-item-tracking/consumer
     GenerateReportComponent,
     ItemConfirmDialog,
     CatConfirmDialog,
-    ConsumerItemTrackingComponent
-    
+    ConsumerItemTrackingComponent,
+    CatAddConfirmDialog,
+    ItemAddConfirmDialog,
+    SearchCatComponent,
+    SettingsComponent
   ],
   entryComponents: [
     ItemEditComponent,  
     ItemConfirmDialog,
     CategoryDetailsEditComponent,
-    CatConfirmDialog
+    CatConfirmDialog,
+    AddCategoryComponent,
+    CatAddConfirmDialog,
+    AddItemComponent,
+    ItemAddConfirmDialog
   ],
   imports: [
     BrowserModule,

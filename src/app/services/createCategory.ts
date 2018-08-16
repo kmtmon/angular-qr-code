@@ -9,5 +9,8 @@ export class CreateCategory {
     cat = new Category(id,name,desc,imagePath);
     this.cats.push(cat);
   }
- 
+  clearCatList(){
+    this.cats=[];
+    console.log("cat cleared");
+  }
 }

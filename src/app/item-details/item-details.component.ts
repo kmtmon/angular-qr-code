@@ -60,9 +60,11 @@ export class ItemDetailsComponent implements OnInit {
     this.status=this.item.status;
   }
   elementType : 'url' | 'canvas' | 'img' = 'url';
+  /*
   value : string = "{\"id\":\""+this.getId()+"\",\"productID\":\""+
                   this.catId+"\",\"remark\":\""+ this.remark+
                   "\",\"status\":\""+this.status+"\"}";
-
+  */
+ value : string ="{\"id\":\""+this.getId()+"\"}";
 }
 

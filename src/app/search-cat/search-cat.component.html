@@ -1,0 +1,20 @@
+<div class="container">
+  <!-->
+  <p>Search Product
+  <input #searchBox id="search-box" [(ngModel)]="searchCat" />
+  <button (click)="search()">Search</button>
+</p>  
+ <-->
+
+ <p>Search product: </p>
+ <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+ 
+  <ul class="search-result"> 
+    <li *ngFor="let cat of categories$ | async" >
+      <a routerLink="/catDetail/{{cat.id}}">
+        {{cat.name}}
+      </a>
+    </li>
+  </ul>
+
+</div>
