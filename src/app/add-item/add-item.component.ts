@@ -75,7 +75,7 @@ export class AddItemComponent implements OnInit {
   }
   submit(){
     let errorMsg="";
-    let currentDate =+ Date.now();
+    let currentDate =+ Date.now()/1000;
     if(this.selectedCatId == "Choose product" || !isDefined(this.selectedCatId))errorMsg+="Invalid product!\n";
     if( !isDefined(this.selectedQty))errorMsg+="Invalid quantity!\n";
     if(this.selectedStatus == "Select status" || !isDefined(this.selectedStatus))errorMsg+="Invalid status!\n";

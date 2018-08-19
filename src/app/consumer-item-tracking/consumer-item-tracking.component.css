@@ -71,3 +71,10 @@ span.psw {
        width: 30%;
     }
 }
+
+agm-map {
+    height: 400px;
+    margin: 16px;
+  }
+
+  
