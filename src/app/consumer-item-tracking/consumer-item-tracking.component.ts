@@ -58,8 +58,7 @@ export class ConsumerItemTrackingComponent implements OnInit {
         }else{
           this.status = "Invalid Tracking Number"
         }
-        
-
+      
         if(doc.get('status') === 'Out for delivery'){
           this.displayOnMap()
         }
