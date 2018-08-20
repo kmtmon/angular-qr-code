@@ -1,34 +1,44 @@
 <app-current-user></app-current-user>
-<div class="itemEdit" ng-controller="controller as ctrl">
-
-  <h3>Category</h3>
-  <select (change)="getSelectedCat($event)">
-    <option >Select product</option>
-    <option  *ngFor="let cat of categorys" [value]="cat.id"  >{{cat.name}}</option>
-  </select>   
-  <h3>Location</h3>
-  <!--><input [(ngModel)]="itemLocation" placeholder="{{item.location}}"/>
-  <-->
-  <p>Floor Level</p>
-  <input [(ngModel)]="fl" placeholder="{{fl}}"/>
-  <p>Rack Number</p>
-  <input [(ngModel)]="rn" placeholder="{{rn}}"/>
-  <p>Rack Level</p>
-  <input [(ngModel)]="rl" placeholder="{{rl}}"/>
-  <p>Rack Column</p>
-  <input [(ngModel)]="rc" placeholder="{{rc}}"/>
-  <br />
-  <br />
-  <h3>Change status</h3>
-  <select (change)="getSelectedStatus($event)">
-    <option >Select status</option>
-    <option  *ngFor="let s of status" [value]="s"  >{{s}}</option>
-  </select> 
-  <button (click)="goBack()">Cancel</button>
-  <button (click)="test()">Save</button>
-  
-</div>
 
 <div class="home">
-    <app-home></app-home>
+  <app-home></app-home>
+</div>
+
+<div class="itemEdit" ng-controller="controller as ctrl">
+  <h3>Category</h3>
+  <select (change)="getSelectedCat($event)">
+    <option>Select product</option>
+    <option *ngFor="let cat of categorys" [value]="cat.id">{{cat.name}}</option>
+  </select>
+
+  <h3>Change status</h3>
+  <select (change)="getSelectedStatus($event)" data-ng-model="itemStatus">
+    <option>Select status</option>
+    <option *ngFor="let s of status" [value]="s">{{s}}</option>
+  </select>
+
+  <h3>Description</h3>
+  <textarea rows="4" cols="50" [(ngModel)]="description">{{description}}</textarea> 
+
+  <div *ngIf="showLocation">
+    <h3>Location</h3>
+    <!--><input [(ngModel)]="itemLocation" placeholder="{{item.location}}" />
+    <-->
+      <p>Floor Level</p>
+      <input [(ngModel)]="fl" placeholder="{{fl}}" />
+      <p>Rack Number</p>
+      <input [(ngModel)]="rn" placeholder="{{rn}}" />
+      <p>Rack Level</p>
+      <input [(ngModel)]="rl" placeholder="{{rl}}" />
+      <p>Rack Column</p>
+      <input [(ngModel)]="rc" placeholder="{{rc}}" />
+  </div>
+
+
+  <br />
+  <br />
+  <br/>
+
+  <button (click)="goBack()">Cancel</button>
+  <button (click)="saveChange()">Save</button>
 </div>

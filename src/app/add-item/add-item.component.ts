@@ -31,6 +31,8 @@ export class AddItemComponent implements OnInit {
   qtyArr:number[] = [];
   selectedQty:number;
   status:string[]=[];
+  description: string;
+
   constructor(   
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -90,7 +92,7 @@ export class AddItemComponent implements OnInit {
         ifok=dialogRef.componentInstance.ifOk;
         if(ifok){
           for(let i=0;i< this.selectedQty;i++){
-            this.afs.collection('item').add({'id':i+"",'productID': this.selectedCatId, 'remark': '','status':this.selectedStatus});   
+            this.afs.collection('item').add({'id':i+"",'productID': this.selectedCatId, 'remark': '','status':this.selectedStatus, 'description':this.description});   
           }
           alert('Items successfully added!');
 

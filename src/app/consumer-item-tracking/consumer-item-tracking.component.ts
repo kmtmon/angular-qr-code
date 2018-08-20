@@ -53,7 +53,12 @@ export class ConsumerItemTrackingComponent implements OnInit {
     deliveryDoc.get().then((doc) => {
       if(doc.get('status')!== null && doc.get('status')!==''){
         
-        this.status = "Status: "+doc.get('status')
+        if(doc.get('status') !== undefined){
+          this.status = "Status: "+doc.get('status')
+        }else{
+          this.status = "Invalid Tracking Number"
+        }
+        
 
         if(doc.get('status') === 'Out for delivery'){
           this.displayOnMap()
