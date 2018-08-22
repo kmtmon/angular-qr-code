@@ -6,16 +6,16 @@
     <button (click)="editItem()">Edit</button>
 
    <h3>Serial</h3>
-   <p>{{item.id}}</p>
+   <p>{{itemId}}</p>
   
    <h3>Category</h3>
    <p>{{cat}}</p>
   
    <h3>Location</h3>
-   <p>{{item.location}}</p>
+   <p>{{remark}}</p>
 
    <h3>Status</h3>
-   <p>{{item.status}}</p>
+   <p>{{status}}</p>
 
   <ngx-qrcode [qrc-element-type]="elementType" [qrc-value] = "value">
   </ngx-qrcode>

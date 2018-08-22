@@ -29,6 +29,7 @@ export class ItemListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   items:Item[]=[];
   tableEle:tableElement[] = [];
+  availableQty=0;
 
   displayedColumns: string[] = ['id', 'location', 'status', 'log','details'];
   constructor(private messageService: MessageService,
@@ -62,6 +63,8 @@ export class ItemListComponent implements OnInit {
   getItems(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if(this.createItem.items.length == 0){
+      let str = localStorage.getItem('availableQty');
+      this.availableQty =+ str;
       let itemDoc = this.afs.firestore.collection(`item`);
       itemDoc.get().then((querySnapshot) => { 
         let tempitems:Item[]=[];
@@ -78,10 +81,17 @@ export class ItemListComponent implements OnInit {
       })       
     }else{
       for(let i=0;i<this.createItem.items.length;i++){
-          if(this.createItem.items[i].categoryId===id){
-            this.items.push(this.createItem.items[i]);
+        if(this.createItem.items[i].categoryId===id){
+          this.items.push(this.createItem.items[i]);
+          if(this.createItem.items[i].status == "In warehouse"){
+            console.log("add one");
+            this.availableQty += 1;
           }
+        }
       }
+      let str = this.availableQty + "";
+      console.log("this.availableQty "+this.availableQty);
+      localStorage.setItem('availableQty', str);
     }
   }
 

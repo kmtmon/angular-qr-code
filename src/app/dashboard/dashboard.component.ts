@@ -31,18 +31,20 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     this.messageService.add("dashboard....");
-    this.getCats();
+    this.categorys = this.createCat.cats;
+    /*
     this.createItems.clearItemList();
-    console.log("dashboard======== ");
     let itemDoc = this.afs.firestore.collection(`item`);
     itemDoc.get().then((querySnapshot) => { 
         querySnapshot.forEach((doc) => {
             this.createItems.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
-            
           })
     })       
-   
+    */
+   this.createItems.reloadItems();
+  
   }
   updateLog() {
     this.createItems.items;

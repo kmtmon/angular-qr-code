@@ -10,6 +10,7 @@ import { AngularFirestore, AngularFirestoreCollection }
 from 'angularfire2/firestore';   
 import {CreateItems} from '../services/createItems';
 import {CreateCategory} from '../services/createCategory';
+import {CreateLog} from '../services/createLog';
 import { isDefined } from '@angular/compiler/src/util';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { filter } from 'rxjs/operators';
@@ -40,6 +41,7 @@ export class ItemEditComponent implements OnInit {
     private afs: AngularFirestore,
     private createItem:CreateItems,
     private createCat:CreateCategory,
+    private createLog:CreateLog,
     public dialog: MatDialog
 
   ) { }
@@ -137,6 +139,7 @@ export class ItemEditComponent implements OnInit {
           this.createItem.items[matchedIndex].location=this.itemLocation;
           this.createItem.items[matchedIndex].status=this.itemStatus;
           this.afs.collection('log').add({'id':null,'itemId':this.createItem.items[matchedIndex].id, 'remark': this.itemLocation,'status':this.itemStatus,'timestamp':currentDate,'userId':this.getCurrentUser()});
+          this.createLog.reloadLogs();
           this.goBack();
         }
       });

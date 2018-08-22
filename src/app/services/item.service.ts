@@ -19,4 +19,5 @@ export class ItemService   {
     getItem(id: string): Item {
         return (this.ITEMLIST.find(item => item.id === id));
     }
+
 }

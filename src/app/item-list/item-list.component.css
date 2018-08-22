@@ -1,7 +1,7 @@
 .itemList{
     position: fixed;
     right: 8%;
-    top:70%;
+    top:500px;
     width:65%;
     font-family:"Arial", Gadget, sans-serif;
   
@@ -43,7 +43,7 @@ thead.fixedHeader {
 }
 tbody.scrollContent {
     display: block;
-	height: 200px;
+	height: 170px;
 	overflow: auto;
 	width: 100%;
 }
