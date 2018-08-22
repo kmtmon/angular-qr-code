@@ -39,12 +39,8 @@ export class DashboardComponent implements OnInit {
     let itemDoc = this.afs.firestore.collection(`item`);
     itemDoc.get().then((querySnapshot) => { 
         querySnapshot.forEach((doc) => {
-<<<<<<< HEAD
-            this.createItems.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
-=======
             this.createItems.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'),doc.get('description'));
             
->>>>>>> afae5444d9f835e9c09eba9ce36f5edd85fc18b4
           })
     })       
     */

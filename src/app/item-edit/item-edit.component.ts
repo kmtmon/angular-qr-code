@@ -6,18 +6,11 @@ import { Item } from '../models/item';
 import { Category } from '../models/category';
 import { MessageService } from '../services/message.service';
 import { Observable, of } from 'rxjs';
-<<<<<<< HEAD
 import { AngularFirestore, AngularFirestoreCollection } 
 from 'angularfire2/firestore';   
 import {CreateItems} from '../services/createItems';
 import {CreateCategory} from '../services/createCategory';
 import {CreateLog} from '../services/createLog';
-=======
-import { AngularFirestore, AngularFirestoreCollection }
-  from 'angularfire2/firestore';
-import { CreateItems } from '../services/createItems';
-import { CreateCategory } from '../services/createCategory';
->>>>>>> afae5444d9f835e9c09eba9ce36f5edd85fc18b4
 import { isDefined } from '@angular/compiler/src/util';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { filter } from 'rxjs/operators';
@@ -49,14 +42,9 @@ export class ItemEditComponent implements OnInit {
     private location: Location,
     private messageService: MessageService,
     private afs: AngularFirestore,
-<<<<<<< HEAD
     private createItem:CreateItems,
     private createCat:CreateCategory,
     private createLog:CreateLog,
-=======
-    private createItem: CreateItems,
-    private createCat: CreateCategory,
->>>>>>> afae5444d9f835e9c09eba9ce36f5edd85fc18b4
     public dialog: MatDialog
 
   ) { }
@@ -165,19 +153,11 @@ export class ItemEditComponent implements OnInit {
         ifok = dialogRef.componentInstance.ifOk;
         if (ifok) {
           this.updateTodo(this.createItem.items[matchedIndex]);
-<<<<<<< HEAD
           this.createItem.items[matchedIndex].categoryId=this.selectedCatId;
           this.createItem.items[matchedIndex].location=this.itemLocation;
           this.createItem.items[matchedIndex].status=this.itemStatus;
           this.afs.collection('log').add({'id':null,'itemId':this.createItem.items[matchedIndex].id, 'remark': this.itemLocation,'status':this.itemStatus,'timestamp':currentDate,'userId':this.getCurrentUser()});
           this.createLog.reloadLogs();
-=======
-          this.createItem.items[matchedIndex].categoryId = this.selectedCatId;
-          this.createItem.items[matchedIndex].location = this.itemLocation;
-          this.createItem.items[matchedIndex].status = this.itemStatus;
-          this.createItem.items[matchedIndex].description = this.description;
-          this.afs.collection('log').add({ 'id': null, 'itemId': this.createItem.items[matchedIndex].id, 'remark': this.itemLocation, 'status': this.itemStatus, 'timestamp': currentDate, 'userId': this.getCurrentUser() });
->>>>>>> afae5444d9f835e9c09eba9ce36f5edd85fc18b4
           this.goBack();
         }
       });
