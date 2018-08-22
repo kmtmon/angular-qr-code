@@ -20,6 +20,9 @@ export class ConsumerItemTrackingComponent implements OnInit {
   loading = false;
   submitted = false;
   displayMap = false;
+  displaySignature = false;
+
+  signatureURL = '';
   logs: Log[] = [];
 
   title: string = 'My first AGM project';
@@ -47,26 +50,35 @@ export class ConsumerItemTrackingComponent implements OnInit {
 
     this.status = ""
     this.displayMap = false
-    
+    this.displaySignature = false
+
 
     let deliveryDoc = this.afs.firestore.collection(`item`).doc(this.f.itemId.value)
     deliveryDoc.get().then((doc) => {
-      if(doc.get('status')!== null && doc.get('status')!==''){
-        
-        if(doc.get('status') !== undefined){
-          this.status = "Status: "+doc.get('status')
-        }else{
+      if (doc.get('status') !== null && doc.get('status') !== '') {
+
+        if (doc.get('status') !== undefined) {
+          this.status = "Status: " + doc.get('status')
+        } else {
           this.status = "Invalid Tracking Number"
         }
-      
-        if(doc.get('status') === 'Out for delivery'){
+
+        if (doc.get('status') === 'Out for delivery') {
           this.displayOnMap()
+        }
+
+        if (doc.get('status') === 'Delivered') {
+          if (doc.get('remark') !== undefined) {
+            this.displaySignature = true
+            this.signatureURL = doc.get('remark')
+          }
         }
       }
     })
   }
 
-  displayOnMap(){
+
+  displayOnMap() {
     let logDoc = this.afs.firestore.collection(`log`)
       .orderBy('timestamp', "desc")
 

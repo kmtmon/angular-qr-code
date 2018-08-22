@@ -24,6 +24,10 @@ button:hover {
     opacity: 0.8;
 }
 
+img { 
+    border:1px solid #021a40;
+ }
+
 .cancelbtn {
     width: auto;
     padding: 10px 18px;

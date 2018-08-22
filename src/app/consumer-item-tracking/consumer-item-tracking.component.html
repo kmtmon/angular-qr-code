@@ -15,11 +15,17 @@
   </form>
 </div>
 
-<div class="container" >
-    <label for="status" id="text">{{status}}</label>
-    <div *ngIf="displayMap">
+<div class="container">
+  <label for="status" id="text">{{status}}</label>
+  <div *ngIf="displaySignature">
+    <p>Proof of delivery</p>
+    <br/>
+    <img src="{{signatureURL}}" height=200>
+  </div>
+
+  <div *ngIf="displayMap">
     <agm-map [latitude]="lat" [longitude]="lng" [zoom]=15>
-        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-      </agm-map>
-    </div>
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+  </div>
 </div>
