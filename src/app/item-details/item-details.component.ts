@@ -24,6 +24,7 @@ export class ItemDetailsComponent implements OnInit {
   remark:string;
   status:string;
   categories=this.createCat.cats;
+  description:string;
   constructor(
     private route: ActivatedRoute,
     private itemService: ItemService,
@@ -77,7 +78,7 @@ export class ItemDetailsComponent implements OnInit {
       this.cat=strs[0];
       this.remark=strs[1];
       this.status=strs[2];
-   
+      this.description=strs[3];
       let catDoc = this.afs.firestore.collection(`product`);
       catDoc.get().then((querySnapshot) => { 
           querySnapshot.forEach((doc) => {
@@ -90,7 +91,8 @@ export class ItemDetailsComponent implements OnInit {
       this.cat = cat.name;  
       this.remark=this.item.location;
       this.status=this.item.status;
-      str =  this.cat+","+this.remark+","+this.status;
+      this.description=this.item.description;
+      str =  this.cat+","+this.remark+","+this.status+","+this.description;
       localStorage.setItem('currentItem', str);
     }
   }

@@ -27,7 +27,7 @@ export class AppComponent {
     private createLog:CreateLog,
     private createUsers:CreateUsers
   ){
-    this.messageService.add("app.component.....");
+    console.log("app.component.....");
     if(this.createUsers.users.length==0){
         let userDoc = this.afs.firestore.collection(`user`);
         userDoc.get().then((querySnapshot) => { 

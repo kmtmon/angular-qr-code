@@ -54,8 +54,10 @@ export class LogComponent implements OnInit {
       this.catName=this.catService.getCatName(catId);
      
       localStorage.setItem('logs', logstr);
+      localStorage.setItem('cat', this.catName);
     }else{
       let logstr = localStorage.getItem('logs');
+      this.catName = localStorage.getItem('cat');
       let logListArr=logstr.split(';');
       for(let i=0; i<logListArr.length;i++){
         let logstr = logListArr[i];

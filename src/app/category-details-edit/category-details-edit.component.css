@@ -1,12 +1,13 @@
 .main{
     position: fixed;
     right: 10%;
-    top:15%;
-    left:20%;
+    top:150px;
+    left:370px;
     width:70%;
     font-family:"Arial", Gadget, sans-serif;
     font-size: 1em;
     color:rgb(17, 72, 97);
+
 }
 table{
     border-spacing: 24px;
@@ -42,3 +43,20 @@ textarea{
     border-radius: 5px;
     resize:none;
 }
+
+@media (max-width: 768px) {
+
+    .main{
+        position: fixed;
+        right: 10%;
+        top:150px;
+        left:30px;
+        width:70%;
+        font-family:"Arial", Gadget, sans-serif;
+        font-size: 1em;
+        color:rgb(17, 72, 97);
+    
+    }
+  
+  }
+ 
