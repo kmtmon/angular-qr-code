@@ -105,7 +105,7 @@ export class GenerateReportComponent implements OnInit {
       itemDoc.get().then((querySnapshot) => { 
         let tempItems:Item[]=[];
           querySnapshot.forEach((doc) => {
-              let tempitem = new Item(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
+              let tempitem = new Item(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'),doc.get('description'));
               tempItems.push(tempitem);
           })
           this.items=tempItems;

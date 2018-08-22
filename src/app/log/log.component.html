@@ -1,23 +1,26 @@
-
-<app-current-user></app-current-user>
+<app-current-user>
+</app-current-user>
 <div class="container">
   <h3 id="h1">Serial No.: {{itemId}} </h3>
   <h3 id="h2">Category: {{catName}} </h3>
   <table>
-    <tr>
-      <th>Log Date</th>
-      <th>Remark</th>
-      <th>Status</th>
-      <th>Modified By</th>
-    </tr>
-    <tr *ngFor="let log of logs">
-      <td>{{log.timestamp | date: 'yyyy-MM-dd'}}</td>
-      <td>{{log.remark}}</td>
-      <td>{{log.status}}</td>
-      <td>{{log.userId}}</td>
-    </tr>
+    <thead class="fixedHeader">
+      <tr>
+        <th>Log Date</th>
+        <th>Remark</th>
+        <th>Status</th>
+        <th>Modified By</th>
+      </tr>
+    </thead>
+    <tbody class="scrollContent">
+      <tr *ngFor="let log of logs">
+        <td>{{log.timestamp | date: 'yyyy-MM-dd'}}</td>
+        <td>{{log.remark}}</td>
+        <td>{{log.status}}</td>
+        <td>{{log.userId}}</td>
+      </tr>
+    </tbody>
   </table>
-  <button (click)="goBack()">go back</button>
 </div>
 
 <div class="home">

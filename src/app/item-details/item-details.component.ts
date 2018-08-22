@@ -66,7 +66,7 @@ export class ItemDetailsComponent implements OnInit {
       let itemDoc = this.afs.firestore.collection(`item`);
       itemDoc.get().then((querySnapshot) => { 
         querySnapshot.forEach((doc) => {
-            this.createItems.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
+            this.createItems.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'),doc.get('description'));
           })
       })   
     }

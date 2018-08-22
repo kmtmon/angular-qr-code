@@ -6,11 +6,10 @@ import { AngularFirestore, AngularFirestoreCollection }
 @Injectable({ providedIn: 'root' })
 export class CreateItems {
   items:Item[]=[];
- 
   constructor(private afs: AngularFirestore){}
-  addToItemList(id:string, catId: string,location:string,status:string) {
+  addToItemList(id:string, catId: string,location:string,status:string,description:string) {
     let item:Item;
-    item = new Item(id,catId,location,status);
+    item = new Item(id,catId,location,status,description);
     this.items.push(item);
   }
  
@@ -24,7 +23,7 @@ export class CreateItems {
     let itemDoc = this.afs.firestore.collection(`item`);
     itemDoc.get().then((querySnapshot) => { 
         querySnapshot.forEach((doc) => {
-            this.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
+            this.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'),doc.get('description'));
           })
       })   
     }

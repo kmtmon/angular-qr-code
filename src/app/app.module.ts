@@ -71,8 +71,10 @@ import {
   MatTooltipModule,
   MatTreeModule,
 } from '@angular/material';
+import { ConsumerItemTrackingComponent } from './consumer-item-tracking/consumer-item-tracking.component';
 import { SearchCatComponent } from './search-cat/search-cat.component';
 import { SettingsComponent } from './settings/settings.component';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   exports: [
@@ -99,6 +101,7 @@ import { SettingsComponent } from './settings/settings.component';
     GenerateReportComponent,
     ItemConfirmDialog,
     CatConfirmDialog,
+    ConsumerItemTrackingComponent,
     CatAddConfirmDialog,
     ItemAddConfirmDialog,
     SearchCatComponent,
@@ -126,7 +129,10 @@ import { SettingsComponent } from './settings/settings.component';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireStorageModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBcJw_m4E8SyL96Aolitk0WSWkm92O97mI'
+    })
   ],
   providers: 
     [AuthGuard,

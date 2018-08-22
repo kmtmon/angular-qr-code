@@ -69,8 +69,8 @@ export class ItemListComponent implements OnInit {
       itemDoc.get().then((querySnapshot) => { 
         let tempitems:Item[]=[];
         querySnapshot.forEach((doc) => {
-            this.createItem.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
-            let tempitem = new Item(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'));
+            this.createItem.addToItemList(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'),doc.get('description'));
+            let tempitem = new Item(doc.id,doc.get('productID'),doc.get('remark'),doc.get('status'),doc.get('description'));
             tempitems.push(tempitem);
           })
         for(let i=0;i<tempitems.length;i++){

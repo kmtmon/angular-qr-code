@@ -1,8 +1,8 @@
 .itemList{
-    position: fixed;
+    /* position: fixed; */
     right: 8%;
-    top:500px;
-    width:65%;
+    top:70%;
+    /* width:65%; */
     font-family:"Arial", Gadget, sans-serif;
   
 }
@@ -29,7 +29,9 @@ td{
     color:rgb(0, 5, 7);
     height:50%;
     width:37%;
+    padding: 5px;
 }
+
 td a{
     font-size:0.8em;
 }

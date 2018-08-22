@@ -1,32 +1,46 @@
 <app-current-user></app-current-user>
 <div class="container">
+    
     <h3>Add New Item</h3>
     <label for="name">Choose Product</label>
     <br />
+    
     <select (change)="getSelectedCat($event)">
-        <option >Choose product</option>
-        <option  *ngFor="let cat of categorys" [value]="cat.id"  >{{cat.name}}</option>
-    </select>   
+        <option>Choose product</option>
+        <option *ngFor="let cat of categorys" [value]="cat.id">{{cat.name}}</option>
+    </select>
     <br />
     <br />
+    
     <label for="qty">Status</label>
     <br />
+    
     <select (change)="getSelectedStatus($event)">
-        <option >Select status</option>
-        <option  *ngFor="let s of status" [value]="s"  >{{s}}</option>
-    </select> 
+        <option>Select status</option>
+        <option *ngFor="let s of status" [value]="s">{{s}}</option>
+    </select>
     <br />
     <br />
+    
+    <label for="description">Description</label>
+    <br />
+    <textarea rows="4" cols="50" [(ngModel)]="description">{{description}}</textarea>
+    <br />
+    <br />
+    
     <label for="qty">Quantity</label>
     <br />
+    
     <select (change)="getSelectedQty($event)">
-        <option >Select quantity</option>
-        <option  *ngFor="let i of qtyArr" [value]="i"  >{{i}}</option>
-    </select> 
+        <option>Select quantity</option>
+        <option *ngFor="let i of qtyArr" [value]="i">{{i}}</option>
+    </select>
+    
     <br />
     <br />
-    <button type="submit" (click)="submit()" >Submit</button>
-    <button type="cancel" routerLink="/dashboard" >Cancel</button>
+    
+    <button type="submit" (click)="submit()">Submit</button>
+    <button type="cancel" routerLink="/dashboard">Cancel</button>
 </div>
 
 <div class="home">

@@ -1,0 +1,25 @@
+<div class="loginPart">
+  <form [formGroup]="trackingForm" (ngSubmit)="onTrack()">
+
+    <div class="container">
+      <label for="tracking" id="text"><b>Enter tracking number</b></label>
+      <br />
+
+      <input type="text" formControlName="itemId" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+      />
+      <br />
+
+      <button [disabled]="loading" type="submit">Track</button>
+    </div>
+
+  </form>
+</div>
+
+<div class="container" >
+    <label for="status" id="text">{{status}}</label>
+    <div *ngIf="displayMap">
+    <agm-map [latitude]="lat" [longitude]="lng" [zoom]=15>
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      </agm-map>
+    </div>
+</div>

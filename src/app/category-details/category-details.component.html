@@ -1,20 +1,21 @@
-
 <app-current-user></app-current-user>
-
 <div *ngIf="category" class="main">
-  <button (click)="goBack()">go back</button>
+  <!-- <button (click)="goBack()">go back</button> -->
   <button (click)="editCategory()">Edit</button>
+  <br/>
+
+  <img src="{{(!category.imagePath || category.imagePath === '')? '../../assets/no_image_available.png':category.imagePath}}"
+    height=250>
 
   <h3>Product Name </h3>
   <p>{{category.name}}</p>
- 
-   <h3>Description</h3>
-   <p>{{category.description}}</p>
-  
+
+  <h3>Description</h3>
+  <p>{{category.description}}</p>
+
+  <app-item-list></app-item-list>
 </div>
+
 <div class="home">
   <app-home></app-home>
 </div>
-<app-item-list></app-item-list>
-
-

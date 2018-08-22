@@ -1,12 +1,15 @@
 <app-current-user></app-current-user>
 <div class="container">
     <h3>Add New Category</h3>
-    
-    <input type="file" #fileImportInput name="File Upload" 
-    id="txtFileUpload" (change)="fileChangeListener($event)" accept=".csv" />
+
+    <label for="name">Add csv file to continue</label>
+    <br/>
+    <input type="file" #fileImportInput name="File Upload" id="txtFileUpload" (change)="fileChangeListener($event)" accept=".csv"
+    />
     <br />
     <button (click)="submit()">Save</button>
     <button (click)="goBack()">Cancel</button>
+    <br/>
     <p class="notice">Notice: Product name and description should not be empty.</p>
 </div>
 

@@ -1,6 +1,11 @@
 .userInfo{
     float:right;
-    padding: 10px 12px 10px 20px;
+    /* padding: 10px 12px 10px 20px; */
+    position: fixed;
+    right: 8%;
+    width:65%;
+    text-align: right;
+    
 }
 .userInfo h3{
     font-family:"Arial", Gadget, sans-serif;

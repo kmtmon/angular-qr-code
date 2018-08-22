@@ -14,6 +14,7 @@ import {AddCategoryComponent} from './add-category/add-category.component';
 import {AddItemComponent} from './add-item/add-item.component';
 import {ItemDetailsComponent} from './item-details/item-details.component';
 import {GenerateReportComponent} from './generate-report/generate-report.component';
+import {ConsumerItemTrackingComponent} from './consumer-item-tracking/consumer-item-tracking.component';
 import {SettingsComponent} from './settings/settings.component';
 const routes: Routes = [
       { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -27,6 +28,7 @@ const routes: Routes = [
     { path: 'addItem', component: AddItemComponent },
     { path: 'itemDetails/:id',  component:ItemDetailsComponent},
     { path: 'generateReport', component:GenerateReportComponent},
+    { path: 'consumerItemTracking', component:ConsumerItemTrackingComponent},
     { path: 'settings', component:SettingsComponent},
     // otherwise redirect to home
     { path: '**', redirectTo: 'dashboard' }

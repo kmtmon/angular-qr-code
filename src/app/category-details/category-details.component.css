@@ -1,10 +1,9 @@
 .main{
-   
     position: fixed;
-    right: 20%;
-    top:22%;
-    left:30%;
-    width:60%;
+    right: 10%;
+    top:15%;
+    left:20%;
+    width:70%;
     font-family:"Arial", Gadget, sans-serif;
     font-size: 1em;
     color:rgb(17, 72, 97);
@@ -19,8 +18,21 @@ tr{
 }
 .home{
     width:100%;
-  
-  }
+}
+
+button {
+    background-color: rgb(12, 110, 87);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    float:right;
+}
+
+button:hover {
+    opacity: 0.8;
+}
 
 @media only screen and (max-width: 600px) {
     .main{
