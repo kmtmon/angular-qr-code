@@ -8,7 +8,7 @@
   position: fixed;
   right: 10%;
   top:15%;
-  left:20%;
+  left:300px;
   width:70%;
   font-family:"Arial", Gadget, sans-serif;
   font-size: 1em;
@@ -48,7 +48,7 @@ button:hover {
 
     .container{
       position: fixed;
-      top:300px;
+      top:15%;
       width:100%;
       /* background-color: rgb(42, 131, 89);*/
      

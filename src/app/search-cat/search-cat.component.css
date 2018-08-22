@@ -15,7 +15,7 @@
   }
   
   .search-result li a {
-    color: #888;
+    color: rgb(5, 4, 4);
     display: block;
     text-decoration: none;
   }
@@ -24,14 +24,16 @@
     color: white;
   }
   .search-result li a:active {
-    color: white;
+    color: rgb(5, 4, 4);
   }
   #search-box {
-    width: 160px;
+    width: 70%;
     height: 20px;
   }
   
-  
+  p{
+    color: #fff;
+  }
   ul.search-result {
     margin-top: 0;
     padding-left: 0;
@@ -39,8 +41,15 @@
   .container{
     position:fixed;
     top:280px;
-    left:5px;
-    color: rgb(19, 107, 136);
+    width:20%;
+   
   }
+  @media (max-width: 768px) {
 
+    .container{
+      visibility: hidden;
+    }
+     
+    }
+    
   

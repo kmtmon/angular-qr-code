@@ -2,11 +2,14 @@
     position: fixed;
     right: 10%;
     top:15%;
-    left:20%;
+    left:290px;
     width:70%;
     font-family:"Arial", Gadget, sans-serif;
     font-size: 1em;
     color:rgb(17, 72, 97);
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: clip; 
   }
 
   /* table{
@@ -55,4 +58,20 @@ tbody.scrollContent {
 	height: 500px;
 	overflow: auto;
 	width: 100%;
+}
+
+@media (max-width: 768px) {
+    .container{
+        position: fixed;
+        right: 10%;
+        top:15%;
+        left:30px;
+        width:100%;
+        font-family:"Arial", Gadget, sans-serif;
+        font-size: 1em;
+        color:rgb(17, 72, 97);
+        white-space: nowrap; 
+        overflow: hidden;
+        text-overflow: clip; 
+      }
 }
