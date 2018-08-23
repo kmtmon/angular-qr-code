@@ -27,6 +27,7 @@ export class ItemDetailsComponent implements OnInit {
   description: string;
   displaySignature = false;
   signatureURL = '';
+  value: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -50,7 +51,8 @@ export class ItemDetailsComponent implements OnInit {
   getItem(): void {
     this.itemId = this.route.snapshot.paramMap.get('id');
     // this.item=this.itemService.getItem(id); 
-
+    this.value = "{\"id\":\"" + this.itemId + "\"}";
+    
     if (this.createItems.items.length != 0) {
       this.item = this.itemService.getItem(this.itemId);
       this.displaySignatureImage()
@@ -115,6 +117,6 @@ export class ItemDetailsComponent implements OnInit {
                   this.catId+"\",\"remark\":\""+ this.remark+
                   "\",\"status\":\""+this.status+"\"}";
   */
-  value: string = "{\"id\":\"" + this.itemId + "\"}";
+  
 }
 
