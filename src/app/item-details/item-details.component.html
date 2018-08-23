@@ -1,32 +1,37 @@
-
-<app-current-user></app-current-user>
+<app-current-user>
+</app-current-user>
 
 <div class="main">
-    <button (click)="editItem()">Edit</button>
+  <button (click)="editItem()">Edit</button>
 
-   <h3>Serial</h3>
-   <p>{{itemId}}</p>
-  
-   <h3>Category</h3>
-   <p>{{cat}}</p>
+  <h3>Serial</h3>
+  <p>{{itemId}}</p>
 
-   <div *ngIf="description== undefined && description!== ''">
-      <h3>Description</h3>
-      <p>description</p>
-   </div>
-   
-   <div *ngIf="remark!== ''">
-      <h3>Location</h3>
-   <p>remark</p>
+  <h3>Category</h3>
+  <p>{{cat}}</p>
+
+  <div *ngIf="description !== undefined && description!== ''">
+    <h3>Description</h3>
+    <p>{{description}}</p>
   </div>
 
-   <h3>Status</h3>
-   <p>{{status}}</p>
+  <div *ngIf="remark!== ''">
+    <h3>Location</h3>
+    <p>{{remark}}</p>
+  </div>
 
-  <ngx-qrcode [qrc-element-type]="elementType" [qrc-value] = "value">
+  <h3>Status</h3>
+  <p>{{status}}</p>
+
+  <ngx-qrcode [qrc-element-type]="elementType" [qrc-value]="value">
   </ngx-qrcode>
+
+  <div *ngIf="displaySignature">
+    <h3>Proof of delivery</h3>
+    <br/>
+    <img src="{{signatureURL}}" height=200>
+  </div>
 </div>
 <div class="home">
   <app-home></app-home>
 </div>
-
