@@ -81,6 +81,7 @@ export class AddItemComponent implements OnInit {
     if(this.selectedCatId == "Choose product" || !isDefined(this.selectedCatId))errorMsg+="Invalid product!\n";
     if( !isDefined(this.selectedQty))errorMsg+="Invalid quantity!\n";
     if(this.selectedStatus == "Select status" || !isDefined(this.selectedStatus))errorMsg+="Invalid status!\n";
+    if(this.description == "" || !isDefined(this.description))errorMsg+="Invalid description!\n";
     if(errorMsg!="")alert(errorMsg);
     else{
       let ifok:boolean;
