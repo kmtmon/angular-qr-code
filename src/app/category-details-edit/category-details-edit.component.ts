@@ -64,6 +64,7 @@ export class CategoryDetailsEditComponent implements OnInit {
     this.orgCat = this.catService.getCat(this.id);
     this.catName = this.orgCat.name;
     this.catDesc = this.orgCat.description;
+    this.imagePath = this.orgCat.imagePath;
   }
 
   goBack(): void {
