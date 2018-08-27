@@ -1,3 +1,4 @@
+
 import { Component, OnInit,ViewChild,Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -93,6 +94,7 @@ export class AddItemComponent implements OnInit {
         ifok=dialogRef.componentInstance.ifOk;
         if(ifok){
           for(let i=0;i< this.selectedQty;i++){
+            console.log("this.selectedCatId: "+this.selectedCatId+", this.selectedStatus: "+this.selectedStatus+", this.description: "+this.description)
             this.afs.collection('item').add({'id':i+"",'productID': this.selectedCatId, 'remark': '','status':this.selectedStatus, 'description':this.description});   
           }
           alert('Items successfully added!');

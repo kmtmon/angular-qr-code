@@ -65,12 +65,10 @@ export class ItemEditComponent implements OnInit {
     //this.itemLocation=this.item.location;
     this.itemStatus=this.item.status;
     this.description = this.item.description;
-    console.log(this.description)
   }
 
   getLocation() {
     if (isDefined(this.item.location)) {
-      console.log("--is defined");
     }
     if (isDefined(this.item.location)) {
       if (this.item.location != "") {
@@ -96,7 +94,6 @@ export class ItemEditComponent implements OnInit {
     let userStr: string[] = user.split(',');
     let userNameStr = userStr[0];
     let unstr: string[] = userNameStr.split('\"');
-    console.log("unstr " + unstr[3]);
     return unstr[3];
   }
   updateTodo(item: Item) {
@@ -119,9 +116,7 @@ export class ItemEditComponent implements OnInit {
   getSelectedCat(args) {
     this.selectedCatId = args.target.value;
   }
-  test() {
-    console.log("fl: " + this.fl + " rn: " + this.rn + " rl: " + this.rl + " rc: " + this.rc);
-  }
+
   saveChange() {
     if (this.fl === undefined ||
       this.rn === undefined ||
@@ -148,7 +143,8 @@ export class ItemEditComponent implements OnInit {
       const dialogRef = this.dialog.open(ItemConfirmDialog, {
         width: '250px', data: "Are you sure to update item?"
       });
-      let currentDate = + Date.now() / 1000;
+     // let currentDate = + Date.now() / 1000;
+     let currentDate = + Date.now();
       dialogRef.afterClosed().subscribe(() => {
         ifok = dialogRef.componentInstance.ifOk;
         if (ifok) {
@@ -156,8 +152,11 @@ export class ItemEditComponent implements OnInit {
           this.createItem.items[matchedIndex].categoryId=this.selectedCatId;
           this.createItem.items[matchedIndex].location=this.itemLocation;
           this.createItem.items[matchedIndex].status=this.itemStatus;
-          this.afs.collection('log').add({'id':null,'itemId':this.createItem.items[matchedIndex].id, 'remark': this.itemLocation,'status':this.itemStatus,'timestamp':currentDate,'userId':this.getCurrentUser()});
+          this.createItem.items[matchedIndex].description=this.description;
+          
+          this.afs.collection('log').add({'id':null,'itemId':this.createItem.items[matchedIndex].id, 'remark': this.itemLocation,'status':this.itemStatus,'timestamp':currentDate,'userId':this.getCurrentUser(),'description':this.description});
           this.createLog.reloadLogs();
+         
           this.goBack();
         }
       });

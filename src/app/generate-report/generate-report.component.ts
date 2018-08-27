@@ -91,7 +91,7 @@ export class GenerateReportComponent implements OnInit {
       logDoc.get().then((querySnapshot) => { 
         let tempLogs:Log[]=[];
           querySnapshot.forEach((doc) => {
-              let templog = new Log(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'));
+              let templog = new Log(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'),doc.get('description'));
               tempLogs.push(templog);
           })
           this.logs=tempLogs;
@@ -129,27 +129,31 @@ export class GenerateReportComponent implements OnInit {
   }
   createAPage(doc:jsPDF,rowText1:number,rowLine1y:number,logs:Log[],dateStr:string,date:Date,firstPage:boolean){
     doc.setFontType("bold");
-    doc.setFontSize(12);
-    doc.text(16, rowText1, "Log Date");
-    doc.text(50, rowText1, "Item Code");
-    doc.text(105, rowText1, "Product");
-    doc.text(155, rowText1, "Remark");
-    doc.text(210, rowText1, "Status");
-    doc.text(250, rowText1, "Modified by");
+    doc.setFontSize(11);
+    doc.text(7, rowText1, "Log Date");
+    doc.text(40, rowText1, "Item Code");
+    doc.text(80, rowText1, "Product");
+    doc.text(120, rowText1, "Remark");
+    doc.text(170, rowText1, "Status");
+    doc.text(220, rowText1, "Description");
+    doc.text(270, rowText1, "Modified by");
 
-    doc.line(10, rowLine1y, 290, rowLine1y);
+    doc.line(5, rowLine1y, 295, rowLine1y);
 
-    let gapBtwTextLine = 3;
-    let line0x = 10;
-    let line1x = 37;
-    let line2x = 90;
-    let line3x = 140;
-    let line4x = 190;
-    let line5x = 240;
+    let gapBtwTextLine = 2;
+    let line0x = 5;
+    let line1x = 25;
+    let line2x = 70;
+    let line3x = 105;
+    let line4x = 150;
+    let line5x = 200;
+    let line6x = 250;
 
     doc.setFontType("normal");
-    doc.setFontSize(11);
+    doc.setFontSize(9);
     let username="";
+    let desc ="";
+    let remark="";
     let maxLen=0;
     if(!firstPage){
       this.rowText = rowText1;
@@ -168,39 +172,37 @@ export class GenerateReportComponent implements OnInit {
         doc.text(line1x+gapBtwTextLine, this.rowText, logs[i].itemId);
         catName= doc.splitTextToSize(catName,40);
         doc.text(line2x+gapBtwTextLine, this.rowText, catName);
-        doc.text(line3x+gapBtwTextLine, this.rowText, logs[i].remark);
+        remark=doc.splitTextToSize(logs[i].remark,40);
+        doc.text(line3x+gapBtwTextLine, this.rowText,remark);
+        
         doc.text(line4x+gapBtwTextLine, this.rowText, logs[i].status);
+        desc =doc.splitTextToSize(logs[i].description,40);
+        doc.text(line5x+gapBtwTextLine, this.rowText, desc);
         username=user.username;
         username= doc.splitTextToSize(username,40);
-        doc.text(line5x+gapBtwTextLine, this.rowText,username );
-        
-        if(username.length>catName.length)maxLen=username.length;
-        else if(username.length<catName.length)maxLen=catName.length;
-        else{
-          if( username.length==1 && catName.length==1) maxLen=0;
-          else maxLen = username.length;
-        }
+        doc.text(line6x+gapBtwTextLine, this.rowText,username );
+        let maxLen = Math.max(username.length, catName.length, remark.length,desc.length);
         if(maxLen > 0){
           this.rowLine+=5*(maxLen-1);
           this.rowText += 5*(maxLen-1);
         }
-        doc.line(10, this.rowLine, 290, this.rowLine);
+        doc.line(5, this.rowLine, 295, this.rowLine);
         if(this.rowLine>180){
           this.breakDownIndex=i+1;
           break;
         }
       }
     }
-    doc.line(10, 40, 10, this.rowLine);
-    doc.line(10, 40, 290, 40);
-    doc.line(290, 40, 290, this.rowLine);
+    doc.line(5, 40, 5, this.rowLine);
+    doc.line(5, 40, 295, 40);
+    doc.line(295, 40, 295, this.rowLine);
 
     doc.line(line1x, 40, line1x, this.rowLine);
     doc.line(line2x, 40, line2x, this.rowLine);
     doc.line(line3x, 40, line3x, this.rowLine);
     doc.line(line4x, 40, line4x, this.rowLine);
     doc.line(line5x, 40, line5x, this.rowLine);
-
+    doc.line(line6x, 40, line6x, this.rowLine);
     doc.addPage();
   }
 

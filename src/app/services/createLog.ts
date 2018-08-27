@@ -7,9 +7,9 @@ export class CreateLog {
  
   logRec:Log[]=[];
   constructor(private afs: AngularFirestore){}
-  addToLogList(id: string,itemId: string,remark: string,status: string, timestamp: string , userid: string) {
+  addToLogList(id: string,itemId: string,remark: string,status: string, timestamp: string , userid: string, description:string) {
     let log:Log;
-    log = new Log(id,itemId,remark,status,timestamp,userid);
+    log = new Log(id,itemId,remark,status,timestamp,userid,description);
     this.logRec.push(log);
   }
   clearLogList(){
@@ -18,12 +18,13 @@ export class CreateLog {
   reloadLogs(){
     this.clearLogList();
     if(this.logRec.length == 0){
-    let logDoc = this.afs.firestore.collection(`log`);
-        logDoc.get().then((querySnapshot) => { 
-            querySnapshot.forEach((doc) => {
-                this.addToLogList(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'));
+      let logDoc = this.afs.firestore.collection(`log`);
+      logDoc.get().then((querySnapshot) => { 
+          querySnapshot.forEach((doc) => {
+              this.addToLogList(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'),doc.get('description'));
             })
-        }) 
+      }) 
+      console.log("create log: reloaded");
     }
   }
 }

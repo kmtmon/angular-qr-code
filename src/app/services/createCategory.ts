@@ -11,6 +11,5 @@ export class CreateCategory {
   }
   clearCatList(){
     this.cats=[];
-    console.log("cat cleared");
   }
 }

@@ -36,8 +36,12 @@ export class LogComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log("this.createLog.logRec.length "+this.createLog.logRec.length)
+    for(var i=0; i<this.createLog.logRec.length;i++){
+      console.log("log id:"+this.createLog.logRec[i].id+" item id:"+this.createLog.logRec[i].itemId+" desc "+this.createLog.logRec[i].description+" status "+this.createLog.logRec[i].status);
+    }
     this.itemId = this.route.snapshot.paramMap.get('id');
-    this.getLogs();
+    this.logs=this.getLogs(this.itemId);
     if(this.logs.length != 0){
      
       let ITEMLIST=this.createItem.items;
@@ -48,11 +52,10 @@ export class LogComponent implements OnInit {
       for(let i=0;i<this.logs.length;i++){
         let user = users.find(user => user.id === this.logs[i].userId);
         let logDate = new Date(this.datePipe.transform(this.logs[i].timestamp,'yyyy-MM-dd'));
-        logstr += this.logs[i].id+","+ logDate+","+this.logs[i].remark+","+this.logs[i].status+","+user.username+","+this.logs[i].itemId+";"; 
+        logstr += this.logs[i].id+","+ logDate+","+this.logs[i].remark+","+this.logs[i].status+","+user.username+","+this.logs[i].itemId+","+this.logs[i].description+";"; 
       } 
       
-      this.catName=this.catService.getCatName(catId);
-     
+      this.catName=this.catService.getCatName(catId); 
       localStorage.setItem('logs', logstr);
       localStorage.setItem('cat', this.catName);
     }else{
@@ -63,16 +66,22 @@ export class LogComponent implements OnInit {
         let logstr = logListArr[i];
         if(isDefined(logstr) || logstr != ""){
           let logstrArr=logstr.split(',');
-          let log = new Log(logstrArr[0],logstrArr[5],logstrArr[2],logstrArr[3],logstrArr[1],logstrArr[4]);
+          let log = new Log(logstrArr[0],logstrArr[5],logstrArr[2],logstrArr[3],logstrArr[1],logstrArr[4],logstrArr[6]);
           this.logs.push(log);
         }
       }
     }
   }
  
-  getLogs(): void {
-    this.logs=this.logService.getLogs( this.itemId); 
-  }
+  getLogs(itemId: string): Log[] {
+    let Logs: Log[] = [];
+    for (var i = 0; i < this.createLog.logRec.length; i++) {
+        if(this.createLog.logRec[i].itemId===itemId){
+            Logs.push(this.createLog.logRec[i]);
+        }
+    }
+    return (Logs);
+}
   goBack(): void {
     this.location.back();
   }

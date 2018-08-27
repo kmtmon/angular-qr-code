@@ -50,7 +50,7 @@ export class AppComponent {
     let logDoc = this.afs.firestore.collection(`log`);
         logDoc.get().then((querySnapshot) => { 
             querySnapshot.forEach((doc) => {
-                this.createLog.addToLogList(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'));
+                this.createLog.addToLogList(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'),doc.get('description'));
             })
         }) 
     }

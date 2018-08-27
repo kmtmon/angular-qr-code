@@ -31,9 +31,7 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("dashboard...");
     this.categorys = this.createCat.cats;
-    console.log("now cat length "+this.createCat.cats.length);
     /*
     this.createItems.clearItemList();
     let itemDoc = this.afs.firestore.collection(`item`);
