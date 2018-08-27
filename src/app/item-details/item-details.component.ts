@@ -44,7 +44,7 @@ export class ItemDetailsComponent implements OnInit {
   ngOnInit() {
     this.getItem();
     this.getItemCat();
-
+    
   }
 
 
@@ -88,6 +88,7 @@ export class ItemDetailsComponent implements OnInit {
     }
     let str = "";
     if (this.categories.length == 0) {
+      console.log("item details: now is reloaded");
       str = localStorage.getItem('currentItem');
       let strs = str.split(',');
       this.cat = strs[0];

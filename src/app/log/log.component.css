@@ -3,7 +3,7 @@
     right: 10%;
     top:15%;
     left:290px;
-    width:70%;
+    width:80%;
     font-family:"Arial", Gadget, sans-serif;
     font-size: 1em;
     color:rgb(17, 72, 97);
@@ -27,18 +27,17 @@
 }
 th{
     font-size: 1.2em;
-  
     border-bottom: 2px solid rgb(188, 192, 197);
     color:rgb(17, 72, 97);
     height:50%;
-    width:37%;
+    width:25%;
 }
 td{
     font-size: 1em;
     border-bottom: 2px solid rgb(188, 192, 197);
     color:rgb(0, 5, 7);
     height:50%;
-    width:37%;
+    width:25%;
     padding: 5px;
 }
 

@@ -37,11 +37,7 @@
 
   <br />
   <br />
-  <h3>Change status</h3>
-  <select (change)="getSelectedStatus($event)">
-    <option >Select status</option>
-    <option  *ngFor="let s of status" [value]="s"  >{{s}}</option>
-  </select> 
+
   <button (click)="goBack()">Cancel</button>
   <button (click)="saveChange()">Save</button>
   
