@@ -91,7 +91,9 @@ export class GenerateReportComponent implements OnInit {
       logDoc.get().then((querySnapshot) => { 
         let tempLogs:Log[]=[];
           querySnapshot.forEach((doc) => {
-              let templog = new Log(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),doc.get('timestamp'),doc.get('userId'),doc.get('description'));
+              let timestamp=+doc.get('timestamp')/1000;
+              let timestampstr =timestamp+"";
+              let templog = new Log(doc.id,doc.get('itemId'),doc.get('remark'),doc.get('status'),timestampstr,doc.get('userId'),doc.get('description'));
               tempLogs.push(templog);
           })
           this.logs=tempLogs;
@@ -159,10 +161,11 @@ export class GenerateReportComponent implements OnInit {
       this.rowText = rowText1;
       this.rowLine = rowLine1y;
     }
+  
     for (let i = this.breakDownIndex; i <logs.length; i++) {
+   
       let logDate = new Date(this.datePipe.transform(logs[i].timestamp,'yyyy-MM-dd h:mm:ss'));
       dateStr= this.datePipe.transform(logDate,'dd-MM-yyyy');
-     
       if(logDate <= date){
         let user = this.users.find(user => user.id === logs[i].userId);
         let catName = this.getCatNameByItem(logs[i].itemId);
@@ -176,6 +179,7 @@ export class GenerateReportComponent implements OnInit {
         doc.text(line3x+gapBtwTextLine, this.rowText,remark);
         
         doc.text(line4x+gapBtwTextLine, this.rowText, logs[i].status);
+        if(!isDefined(logs[i].description))logs[i].description="";
         desc =doc.splitTextToSize(logs[i].description,40);
         doc.text(line5x+gapBtwTextLine, this.rowText, desc);
         username=user.username;
@@ -189,9 +193,10 @@ export class GenerateReportComponent implements OnInit {
         doc.line(5, this.rowLine, 295, this.rowLine);
         if(this.rowLine>180){
           this.breakDownIndex=i+1;
-          break;
+          break;  
         }
       }
+      if(i==logs.length-1)this.breakDownIndex=logs.length;
     }
     doc.line(5, 40, 5, this.rowLine);
     doc.line(5, 40, 295, 40);
@@ -215,8 +220,6 @@ export class GenerateReportComponent implements OnInit {
   }
 
   sortLogs():Log[]{
-    console.log("this.selectedBy "+this.selectedBy);
-    console.log("this.direction "+this.direction);
     if(isDefined(this.selectedBy) && this.selectedBy != "--Select--"){
       if(!isDefined(this.direction) || this.direction == "--Select--"){
         alert('Invalid Sort direction!');
@@ -227,7 +230,6 @@ export class GenerateReportComponent implements OnInit {
     else dir=false;
     //'Item code','Log date', 'Remark', 'Status','Modified by'
     let sortedLog:Log[]=[];
-    console.log("this.selectedBy "+this.selectedBy);
     switch(this.selectedBy){
       case 'Item code': sortedLog=this.sortByItemId(dir);break;
       case 'Log date': sortedLog=this.sortByDate(dir);break;
@@ -266,9 +268,11 @@ export class GenerateReportComponent implements OnInit {
     this.rowLine = rowLine1y;
     let firstPage=true;
     this.createAPage(doc,rowText1,rowLine1y,sortedLog,dateStr,logDate,firstPage);
-    if(this.rowLine > 170){
-      firstPage=false;
-      this.createAPage(doc,rowText1,rowLine1y,sortedLog,dateStr,logDate,firstPage);
+    while( this.breakDownIndex < this.logs.length){
+      if(this.rowLine > 170){
+        firstPage=false;
+        this.createAPage(doc,rowText1,rowLine1y,sortedLog,dateStr,logDate,firstPage);
+      }
     }
     doc.save('Report'+currentDateStr+'.pdf');
     
@@ -288,11 +292,6 @@ export class GenerateReportComponent implements OnInit {
       }
       else return 0;
     });
-    /*
-    for(let i=0; i<this.logs.length;i++){
-      console.log("item "+i+" "+this.logs[i].itemId);
-    }
-    */
     return tempLogs;
   }
 
@@ -308,11 +307,6 @@ export class GenerateReportComponent implements OnInit {
       }
       else return 0;
     });
-    /*
-    for(let i=0; i<this.logs.length;i++){
-      console.log("item "+i+" "+this.logs[i].remark);
-    }
-    */
     return tempLogs;
   }
 
@@ -328,11 +322,7 @@ export class GenerateReportComponent implements OnInit {
       }
       else return 0;
     });
-     /*
-    for(let i=0; i<this.logs.length;i++){
-      console.log("item "+i+" "+this.logs[i].timestamp);
-    }
-    */
+
     return tempLogs;
   }
 
@@ -348,11 +338,6 @@ export class GenerateReportComponent implements OnInit {
       }
       else return 0;
     });
-    /*
-    for(let i=0; i<this.logs.length;i++){
-      console.log("item "+i+" "+this.logs[i].remark);
-    }
-    */
     return tempLogs;
   }
 
@@ -368,10 +353,6 @@ export class GenerateReportComponent implements OnInit {
       }
       else return 0;
     });
-    /*
-    for(let i=0; i<this.logs.length;i++){
-      console.log("item "+i+" "+this.logs[i].status);
-    }*/
     return tempLogs;
   }
 

@@ -143,8 +143,7 @@ export class ItemEditComponent implements OnInit {
       const dialogRef = this.dialog.open(ItemConfirmDialog, {
         width: '250px', data: "Are you sure to update item?"
       });
-     // let currentDate = + Date.now() / 1000;
-     let currentDate = + Date.now();
+     let currentDate = + Date.now()/1000;
       dialogRef.afterClosed().subscribe(() => {
         ifok = dialogRef.componentInstance.ifOk;
         if (ifok) {
