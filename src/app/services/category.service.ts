@@ -77,7 +77,8 @@ export class CategoryService {
         return of([]);
       }
       for(let i=0; i<this.CATLIST.length;i++){
-        if(this.CATLIST[i].name.includes(term)){
+
+        if(this.CATLIST[i].name.toLowerCase().includes(term)){
           console.log("this.CATLIST[i].name "+this.CATLIST[i].name);
           matchedCats.push(this.CATLIST[i]);
           found=true;

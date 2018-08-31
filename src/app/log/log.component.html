@@ -16,8 +16,9 @@
     <tbody class="scrollContent">
       <tr *ngFor="let log of logs">
         <td>{{log.timestamp | date: 'yyyy-MM-dd'}}</td>
-        <td>{{log.remark}}</td>
-        <td>{{log.description}}</td>  
+        <td *ngIf="log.status !== 'Delivered'">{{log.remark}}</td>
+        <td *ngIf="log.status === 'Delivered'"></td>
+        <td>{{log.description}}</td>
         <td>{{log.status}}</td>
         <td>{{log.userId}}</td>
       </tr>

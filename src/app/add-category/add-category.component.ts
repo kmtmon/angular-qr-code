@@ -8,6 +8,7 @@ import { AlertService } from '../services/alert.service';
 import {MessageService}  from '../services/message.service';
 import { Category } from '../models/category';
 import { isDefined } from '@angular/compiler/src/util';
+import {CreateCategory} from '../services/createCategory';
 import { AngularFirestore, AngularFirestoreCollection } 
 from 'angularfire2/firestore';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -28,6 +29,7 @@ export class AddCategoryComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
     private location: Location,
+    private createCat:CreateCategory,
     private messageService: MessageService,
     private afs: AngularFirestore,
     public dialog: MatDialog
@@ -106,6 +108,16 @@ export class AddCategoryComponent implements OnInit {
           if(ifok){
             for(let i=0;i< this.csvRecords.length;i++){
               this.afs.collection('product').add({'name': this.csvRecords[i].name, 'desc': this.csvRecords[i].description});
+              let catDoc = this.afs.firestore.collection(`product`);
+              catDoc.get().then((querySnapshot) => { 
+                querySnapshot.forEach((doc) => {
+                  if(doc.get('name')==this.csvRecords[i].name && doc.get('desc')==this.csvRecords[i].description){
+                    this.createCat.addToCatList(doc.id,this.csvRecords[i].name,this.csvRecords[i].description,"");
+                  }
+                })
+              }) 
+             
+             // this.createCat.addToCatList("",this.csvRecords[i].name,this.csvRecords[i].description,"");
             }
             alert('Products successfully added!');
             this.goBack();
